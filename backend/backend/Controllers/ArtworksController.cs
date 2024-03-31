@@ -22,7 +22,7 @@ public class ArtworksController : ControllerBase
 
     // GET: api/artworks
 
-    [HttpGet]
+    [HttpGet]  // Lấy 5 artwork 
     public async Task<IActionResult> GetArtworks()
     {
         var artworks = await _context.Artworks
@@ -51,6 +51,56 @@ public class ArtworksController : ControllerBase
 
         return Ok(artworks);
     }
+
+
+    [HttpGet("GetArtworksWithPaymentStatus/{buyerId}")]
+    public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPaymentStatus(int buyerId, int pageNumber = 1, int pageSize = 6)
+    {
+        try
+        {
+            // Tính toán số lượng bản ghi cần bỏ qua (skip)
+            int skipCount = (pageNumber - 1) * pageSize;
+
+            // Lấy tổng số bản ghi
+            int totalRecords = await _context.Artworks.CountAsync();
+
+            // Tính toán tổng số trang
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            // Lấy danh sách Artworks và thêm trạng thái vào mỗi artwork trong danh sách
+            var artworkViewModels = await _context.Artworks
+                .Skip(skipCount) // Bỏ qua các bản ghi không cần thiết
+                .Take(pageSize) // Chỉ lấy số lượng bản ghi cần thiết cho trang hiện tại
+                .Select(artwork => new ArtworkViewModel
+                {
+                    ArtworkID = artwork.ArtworkID,
+                    CreatorID = artwork.CreatorID,
+                    ArtworkName = artwork.ArtworkName,
+                    Description = artwork.Description,
+                    DateCreated = artwork.DateCreated,
+                    Likes = artwork.Likes,
+                    image = artwork.ImageFile,
+                    Purchasable = artwork.Purchasable,
+                    Price = artwork.Price,
+                    Status = _context.OrderDetail.Any(od => od.ArtWorkID == artwork.ArtworkID && od.Order.BuyerID == buyerId) ? "Đã thanh toán" : "Chưa thanh toán"
+                })
+                .ToListAsync();
+
+            // Tạo đối tượng chứa cả danh sách artwork và thông tin về phân trang
+            var response = new ArtworksResponse
+            {
+                TotalPages = totalPages,
+                ArtworkViewModels = artworkViewModels
+            };
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Lỗi không xác định: {ex.Message}");
+        }
+    }
+
     [HttpGet("ArtworkNotImageFile/{ArtworkID}")]
     public async Task<IActionResult> GetArtwork(int ArtworkID)
     {
@@ -176,8 +226,8 @@ public class ArtworksController : ControllerBase
 
         // Đếm số artwork được đăng trong 7 ngày gần nhất
         var recentArtworkCount = await _context.Artworks
-            .Where(a => a.DateCreated >= sevenDaysAgo && a.DateCreated <= currentDate)
-            .CountAsync();
+            .Where(a => a.DateCreated >= sevenDaysAgo && a.DateCreated <= currentDate) //Lọc các tác phẩm mà ngày tạo nằm trong khoảng từ ngày 7 ngày trước đến ngày hiện tại.
+            .CountAsync();//Đếm số lượng tác phẩm thỏa mãn điều kiện đã lọc.
 
         return Ok(recentArtworkCount);
     }
@@ -189,16 +239,16 @@ public class ArtworksController : ControllerBase
     public async Task<IActionResult> GetArtworkTags(int artworkId)
     {
         var artworkTags = await _context.ArtworkTag
-            .Where(at => at.ArtworkID == artworkId)
-            .Join(_context.Tags,
+            .Where(at => at.ArtworkID == artworkId) // Using LINQ  // chọn các bản ghi có ArtworkID tương ứng với artworkId
+            .Join(_context.Tags,  // inner join giữa bảng ArtworkTag và Tags dựa trên TagID
                 at => at.TagID,
                 tag => tag.TagID,
-                (at, tag) => new
+                (at, tag) => new  //Chọn các trường TagID và TagName từ bảng Tags sau khi join.
                 {
                     TagID = tag.TagID,
                     TagName = tag.TagName
                 })
-            .Distinct()
+            .Distinct() //Loại các bản bị trùng lập ở trên 
             .ToListAsync();
 
         if (artworkTags == null || artworkTags.Count == 0)
@@ -458,7 +508,7 @@ public class ArtworksController : ControllerBase
 
         var existingArtwork = await _context.Artworks
             .Include(a => a.ArtworkTag)
-            .FirstOrDefaultAsync(a => a.ArtworkID == id);
+            .FirstOrDefaultAsync(a => a.ArtworkID == id);//ID trùng khớp từ cơ sở dữ liệu 
 
         if (existingArtwork == null)
         {
@@ -466,7 +516,7 @@ public class ArtworksController : ControllerBase
         }
 
         _context.Entry(existingArtwork).State = EntityState.Detached;
-
+        //khi thực hiện cập nhật, detach tác phẩm đã tồn tại khỏi context để tránh các vấn đề về tracking.
         existingArtwork.ArtworkName = artworkRequest.ArtworkName;
         existingArtwork.Description = artworkRequest.Description;
         existingArtwork.Likes = artworkRequest.Likes;
@@ -502,17 +552,8 @@ public class ArtworksController : ControllerBase
 
     private bool ArtworkExists(int id)
     {
-        return _context.Artworks.Any(e => e.ArtworkID == id);
+        return _context.Artworks.Any(e => e.ArtworkID == id);//kiểm tra xem tác phẩm với id được cung cấp có tồn tại trong cơ sở dữ liệu
     }
-
-
-
-
-
-
-
-
-
 
 
     //GET: API/artwork/{Top10Liked}
@@ -553,19 +594,19 @@ public class ArtworksController : ControllerBase
 
     // Hàm chọn ngẫu nhiên các phần tử từ danh sách
     private List<Artworks> GetRandomElements(List<Artworks> list, int count)
-    {
+    {//list, là danh sách các tác phẩm ban đầu, và count, là số lượng tác phẩm muốn lấy ra.
         var random = new Random();
         var randomArtworks = new List<Artworks>();
 
-        while (randomArtworks.Count < count)
+        while (randomArtworks.Count < count)// randomArtworks có đủ số lượng tác phẩm cần lấy ra.
         {
-            var index = random.Next(0, list.Count);
+            var index = random.Next(0, list.Count);// Tạo một số ngẫu nhiên từ 0 đến list.Count - 1, vị trí của một tác phẩm trong danh sách ban đầu.
             var artwork = list[index];
 
             // Kiểm tra xem artwork đã được chọn trước đó chưa
             if (!randomArtworks.Contains(artwork))
             {
-                randomArtworks.Add(artwork);
+                randomArtworks.Add(artwork);//tác phẩm đã được chọn trước đó chưaa,chưa thêm tác phẩm vào danh sách randomArtworks
             }
         }
 

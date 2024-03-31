@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using backend.Entities;
 using System.Net;
+using backend.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 
@@ -120,7 +121,7 @@ public class AccountController : ControllerBase
     }
 
 
-    [HttpPut("{id}")]
+    [HttpPut("doitt/{id}")]
     public async Task<IActionResult> PutAccount(int id, Account account)
     {
         if (id != account.AccountID)
@@ -179,26 +180,37 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<Account>> Login(string email, string password)
+    public async Task<ActionResult<UserInfo>> Login(string email, string password)
     {
-        // Tìm tài khoản trong cơ sở dữ liệu dựa trên email
-        var account = await _context.Account
-            .FirstOrDefaultAsync(ac => ac.Email == email);
+        // Thực hiện join giữa bảng Account và bảng Creators
+        var userInfo = await (from account in _context.Account
+                              join creator in _context.Creators on account.AccountID equals creator.AccountID into creatorJoin
+                              from creator in creatorJoin.DefaultIfEmpty()
+                              where account.Email == email
+                              select new UserInfo
+                              {
+                                  AccountID = account.AccountID,
+                                  RoleID = account.RoleID,
+                                  Password = account.Password,
+                                  Email = account.Email,
+                                  BanAccount = account.BanAccount,
+                                  CreatorID = (int?)creator.CreatorID // Convert to nullable int to handle non-existence
+                              }).FirstOrDefaultAsync();
 
-        // Nếu không tìm thấy tài khoản với email cung cấp, trả về Unauthorized
-        if (account == null)
+        // Nếu không tìm thấy thông tin người dùng, trả về Unauthorized
+        if (userInfo == null)
         {
             return Unauthorized(); // 401 Unauthorized
         }
 
         // Kiểm tra mật khẩu
-        if (password != account.Password)
+        if (password != userInfo.Password)
         {
             return Unauthorized(); // 401 Unauthorized
         }
 
-        // Nếu email và mật khẩu đều khớp, trả về tài khoản
-        return account;
+        // Nếu thông tin xác thực hợp lệ, trả về thông tin người dùng dưới dạng UserInfo
+        return Ok(userInfo);
     }
 
 
