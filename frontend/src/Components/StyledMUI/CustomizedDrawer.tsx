@@ -30,7 +30,7 @@ export default function CustomizedDrawer() {
     SetDrawer(!drawer)
   }
 
-  const HomePage = ['View All', 'Hot Topic', 'You Loved These', 'Explore']
+  const HomePage = ['View All', 'Hot Topic', 'You Loved These', 'Explore', 'Art Shop']
   const Personal = ['Transaction History', 'Your Commisions', 'Your Requests']
   const linkListPersonal = [
     'transaction',
@@ -43,8 +43,8 @@ export default function CustomizedDrawer() {
     `/characters`,
     `artwordrecomment`,
     `artwordrecomment`,
-
-
+    `artwordrecomment`,
+    `artshop`,
   ];
 
   const IconListHomePage = [
