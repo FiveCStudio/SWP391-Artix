@@ -38,3 +38,24 @@
     left: 15px;
     background: #0c0f14;
 }
+.form .input-field {
+    width: auto;
+    height: 50px;
+    text-indent: 15px;
+    border-radius: 15px;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #21262e;
+    transition: all 0.3s;
+    caret-color: #d17842;
+    color: #aeaeae;
+}
+
+.form .input-field:hover {
+    border-color: rgba(209, 121, 66, 0.5);
+}
+
+.form .input-field:focus {
+    border-color: #d17842;
+}
+
