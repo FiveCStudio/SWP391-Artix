@@ -2,18 +2,25 @@ import React, {useState,useEffect} from 'react'
 
 
 //type Theme =  string
-const lightimages = [
-  "/sliderImages/day1.png",
-  "/sliderImages/day2.png",
-  "/sliderImages/day3.png",
-  "/sliderImages/day4.png",
-  ]
+// const lightimages = [
+//   "/sliderImages/day1.png",
+//   "/sliderImages/day2.png",
+//   "/sliderImages/day3.png",
+//   "/sliderImages/day4.png",
+//   ]
+// const darkimages = [
+//   "/sliderImages/night1.png",
+//   "/sliderImages/night2.png",
+//   "/sliderImages/night3.png",
+//   "/sliderImages/night4.png",
+//   ]
 const darkimages = [
-  "/sliderImages/night1.png",
-  "/sliderImages/night2.png",
-  "/sliderImages/night3.png",
-  "/sliderImages/night4.png",
-  ]
+  "/images/dark.jpg",
+]
+const lightimages = [
+  "/images/light.jpg",
+]
+
 // public folder is in the same order as the src. 
 //To import images from public: started the path from inside the public folder.
 // ex: /<imagefolder>/image.png

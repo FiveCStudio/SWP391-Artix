@@ -1,4 +1,3 @@
-
 import { Backdrop, Box, Button, Card, CardActions, CardContent, CircularProgress, IconButton, Pagination, Stack, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { useAuth } from '../AuthenContext.tsx'
@@ -105,35 +104,35 @@ function ArtShop() {
                 Purchasable Artworks
             </h1>
             <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", mt: 4 }}>
-                {dataState?.listItem?.map((i, index) => {
+                {dataState?.listItem?.map((art, index) => {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
                                 <Card sx={{ width: 400, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 5 }}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {i?.artworkName}
+                                            {art?.artworkName}
                                         </Typography>
                                         <div>
-                                            <img id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + i?.image} alt={i?.artworkName} />
+                                            <img id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
                                         </div>
 
                                         <Typography variant="body2" color="text.secondary">
                                             <IconButton aria-label="add to favorites">
                                                 <Headset color='primary' />
                                             </IconButton>
-                                            {i?.likes}
+                                            {art?.likes}
                                             <IconButton aria-label="share">
                                                 <Discount sx={{ color: pink[500] }} />
                                             </IconButton>
-                                            {formatMoney(i?.price)}
+                                            {formatMoney(art?.price)}
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{ paddingLeft: 3 }}>
-                                        <Link to={`/characters/artshop/${i?.artworkID}`}><Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More /></Button></Link>
+                                        <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}><Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More /></Button></Link>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
-                                            i?.status ===
+                                            art?.status ===
                                             "Đã thanh toán"
                                             &&
                                             <Button sx={{ minWidth: 0 }}
@@ -167,4 +166,3 @@ function ArtShop() {
 }
 
 export default ArtShop
-
