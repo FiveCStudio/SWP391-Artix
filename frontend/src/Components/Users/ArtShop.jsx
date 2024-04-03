@@ -8,8 +8,9 @@ import "../../css/ArtShop.css";
 import html2canvas from 'html2canvas';
 import { Link } from 'react-router-dom';
 import ArtShopDialog from './ArtShopDialog.jsx';
-
+import { ThemeContext } from '../Themes/ThemeProvider.tsx';
 function ArtShop() {
+    
     const auth = JSON.parse(sessionStorage.getItem("auth"));
     const [dataState, setDataSate] = useState([]);
     const [open, setOpen] = useState(false);
@@ -79,18 +80,21 @@ function ArtShop() {
     useEffect(() => {
         search();
     }, [dataState?.currentPage])
+    const { theme } = useContext(ThemeContext)
     return (
-        <Box
+        <Box className='box' 
             sx={{
                 color: '#61dafb',
-                backgroundColor: `rgba(26, 26, 46,0.97)`,
-                transition: "all 1s ease-in-out",
-                width: '88%',
+                backgroundColor: `rgba(${theme.rgbBackgroundColor},0.97)`,
+                transition: theme.transition,
+                width: '84%',
                 margin: 'auto',
                 borderRadius: '5px',
-                marginBottom: '15px',
+                marginBottom: '100px',
                 paddingLeft: 10,
-                paddingRight: 10
+                paddingRight: 10,
+                paddingBottom:5,
+                transform: 'translateY(40px)'
             }}
         >
             <Backdrop
@@ -101,14 +105,14 @@ function ArtShop() {
             </Backdrop>
             {openDowload && <ArtShopDialog open={openDowload} handleClose={handleClose} handleYesClick={handleYesClick} />}
             <h1>
-                Purchasable Artworks
+                Purchasable Artworks:
             </h1>
             <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", mt: 4 }}>
                 {dataState?.listItem?.map((art, index) => {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
-                                <Card sx={{ width: 400, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 5 }}>
+                                <Card sx={{ width: 350, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
                                             {art?.artworkName}
