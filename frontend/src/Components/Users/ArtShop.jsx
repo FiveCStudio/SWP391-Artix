@@ -87,12 +87,12 @@ function ArtShop() {
                 color: '#61dafb',
                 backgroundColor: `rgba(${theme.rgbBackgroundColor},0.97)`,
                 transition: theme.transition,
-                width: '84%',
+                width: '86%',
                 margin: 'auto',
                 borderRadius: '5px',
                 marginBottom: '100px',
-                paddingLeft: 10,
-                paddingRight: 10,
+                paddingLeft: 5,
+                paddingRight: 5,
                 paddingBottom:5,
                 transform: 'translateY(40px)'
             }}
@@ -107,14 +107,15 @@ function ArtShop() {
             <h1>
                 Purchasable Artworks:
             </h1>
-            <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", mt: 4 }}>
+            <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap", mt: 4, justifyContent:'center' }}>
                 {dataState?.listItem?.map((art, index) => {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
-                                <Card sx={{ width: 350, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
+                            <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
+                                <Card sx={{ width: 280,height:'auto', background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
                                     <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h6" component="div">
                                             {art?.artworkName}
                                         </Typography>
                                         <div>
@@ -133,7 +134,7 @@ function ArtShop() {
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{ paddingLeft: 3 }}>
-                                        <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}><Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More /></Button></Link>
+                                        <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More />Detail</Button>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
                                             art?.status ===
@@ -144,7 +145,7 @@ function ArtShop() {
                                                 <Download />
                                             </Button>}
                                     </CardActions>
-                                </Card>
+                                </Card></Link>
                             </div>
                         </div>
                     )

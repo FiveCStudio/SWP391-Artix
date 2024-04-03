@@ -34,9 +34,9 @@
 } */
 
 .card1-info {
-    --color: #292b2c;
+    /* --color: #292b2c;
     background: var(--color);
-    color: var(--color);
+    color: var(--color); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,5 +68,8 @@
 }
 
 .h-500 {
-    height: 400px;
+    height: 300px;
+}
+.box h1{
+    margin: 0;
 }

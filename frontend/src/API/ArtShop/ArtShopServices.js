@@ -8,7 +8,7 @@ export const getArtWithStatus = (id, pageNumber) => {
     arturl +
       "/GetArtworksWithPaymentStatus/" +
       id +
-      `?pageNumber=${pageNumber || 1}&pageSize=6`
+      `?pageNumber=${pageNumber || 1}&pageSize=8`
   );
 };
 
