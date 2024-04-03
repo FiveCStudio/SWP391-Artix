@@ -9,7 +9,7 @@ import Background from '../Themes/Background.jsx';
 import UserInfoForm from './UserForms/CreateUserInfo.jsx';
 import UploadArtwork from './UserForms/UploadArtwork.tsx';
 import ProfileUser from './ProfileUser.tsx';
-import ArtPost from '../ArtPost.tsx';
+import ArtPost from './ArtPost.tsx';
 import SeeMoreOfArt1 from './SeeMoreOfArt1.tsx';
 import SeeMoreUser from './SeeMoreUser.tsx';
 // eslint-disable-next-line 
@@ -33,7 +33,6 @@ export default function Users() {
           <Route path={`/`} element={<HomePage />} />
           <Route path={`creatorform`} element={<UserInfoForm />} />
           <Route path={`profile/:id`} element={<ProfileUser />} />
-
           <Route path={`artwork/:id`} element={<ArtPost />} />
           <Route element={<ProtectedRoute allowedRoles={['AT', 'AD']} />}>
             <Route path={`artwork/:id/payment`} element={<Payment />} />
@@ -44,20 +43,18 @@ export default function Users() {
             <Route path={`profile/:id/commission`} element={<CommissionForm />} />
             <Route path={`dashboarduser`} element={<DashboardUser />} />
             <Route path={`profile/:id/artwork/:id`} element={<ArtPost />} />
+            <Route path={`artshop`} element={<ArtShop />} />
           </Route>
           <Route path={`artwordrecomment`} element={<SeeMoreOfArt1 />} />
           <Route path={`userrecomment`} element={<SeeMoreUser />} />
           <Route path={`randomword`} element={<SeeMoreForYou />} />
           <Route path={`artwordrecomment/artwork/:id`} element={<ArtPost />} />
           <Route path={`randomword/artwork/:id`} element={<ArtPost />} />
-          <Route path={`artshop`} element={<ArtShop />} />
           <Route path={`artshop/:id`} element={<ArtShopDetail />} />
 
 
 
-
           {/* <Route path={`payment`} element={<Payment/>}/> */}
-
         </Routes>
         <Outlet />
         {/* Outlet is use to render child components */}
