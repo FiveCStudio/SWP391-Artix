@@ -76,3 +76,27 @@ function ArtShop() {
     useEffect(() => {
         search();
     }, [dataState?.currentPage])
+    return (
+        <Box
+            sx={{
+                color: '#61dafb',
+                backgroundColor: `rgba(26, 26, 46,0.97)`,
+                transition: "all 1s ease-in-out",
+                width: '88%',
+                margin: 'auto',
+                borderRadius: '5px',
+                marginBottom: '15px',
+                paddingLeft: 10,
+                paddingRight: 10
+            }}
+        >
+            <Backdrop
+                sx={{ color: '#fff', zIndex: 99 }}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            {openDowload && <ArtShopDialog open={openDowload} handleClose={handleClose} handleYesClick={handleYesClick} />}
+            <h1>
+                Purchasable Artworks
+            </h1>
