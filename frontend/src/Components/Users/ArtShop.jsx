@@ -41,4 +41,22 @@ function ArtShop() {
             handleClose();
         }
     }
-    
+    return (
+        <Box
+            sx={{
+                color: '#61dafb',
+                backgroundColor: `rgba(26, 26, 46,0.97)`,
+                transition: "all 1s ease-in-out",
+                width: '88%',
+                margin: 'auto',
+                borderRadius: '5px',
+                marginBottom: '15px',
+                paddingLeft: 10,
+                paddingRight: 10
+            }}
+        >
+            <Backdrop
+                sx={{ color: '#fff', zIndex: 99 }}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
