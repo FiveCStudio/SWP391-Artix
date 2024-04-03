@@ -10,4 +10,22 @@ export default function ArtShopDialog(props) {
         handleClose
     } = props;
 
-    return (
+    return (     
+         <React.Fragment>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+        >
+            <DialogTitle id="alert-dialog-title">
+                {"Confirm dowload?"}
+            </DialogTitle>
+            <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleYesClick}>
+                    Agree
+                </Button>
+            </DialogActions>
+        </Dialog>
+    </React.Fragment>
+);
+}
