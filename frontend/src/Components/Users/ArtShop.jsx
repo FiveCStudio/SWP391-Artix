@@ -40,3 +40,39 @@ function ArtShop() {
             handleClose();
         }
     }
+    function formatMoney(amount) {
+        return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+
+    const downloadSectionAsImage = async (elementId) => {
+        const element = document.getElementById(elementId);
+
+        if (element) {
+            const canvas = await html2canvas(element);
+            const imageUrl = canvas.toDataURL("image/png");
+            const link = document.createElement("a");
+            link.href = imageUrl;
+            link.download = "image.png";
+            link.click();
+            handleClose();
+        }
+    };
+
+    const handleYesClick = async () => {
+        await downloadSectionAsImage(dataState?.idDowLoad);
+    }
+
+    const handleDownload = async (id) => {
+        setDataSate((pre) => ({
+            ...pre,
+            idDowLoad: id
+        }))
+        setOpenDowload(true);
+    };
+
+    useEffect(() => {
+        search();
+    }, [])
+    useEffect(() => {
+        search();
+    }, [dataState?.currentPage])
