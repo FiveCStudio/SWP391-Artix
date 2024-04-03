@@ -127,4 +127,4 @@ function ArtShop() {
     )
 }
 
-
+export default ArtShop
