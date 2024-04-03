@@ -38,7 +38,6 @@ export default function ArtShopConfirm(props) {
             const data = await VnpayPayment(convertData(dataItem));
             window.location.href = data?.data;
         } catch (error) {
-
         }
     }
     React.useEffect(() => {
@@ -74,8 +73,7 @@ export default function ArtShopConfirm(props) {
                         <input
                             id="serialCardNumber"
                             class="input-field"
-                            type="number"
-                            value={item?.price}
+                            value={item?.price * 1000 + " VND"}
                             name="price"
                             title="Input title"
                             placeholder=""
