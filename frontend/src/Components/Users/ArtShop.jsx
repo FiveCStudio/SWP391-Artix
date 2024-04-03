@@ -109,4 +109,22 @@ function ArtShop() {
                 })
                 }
             </Box>
+            <Box sx={{ display: "flex", justifyContent: "center", margin: "15px 0px 10px 0px" }}>
+                <Stack spacing={2}>
+                    <Pagination
+                        // sx={{ background: "white" }}
+
+                        count={dataState?.totalPages} color="primary"
+                        onChange={(e, page) => {
+                            setDataSate((pre) => ({
+                                ...pre,
+                                currentPage: page
+                            }))
+                        }} />
+                </Stack>
+            </Box>
+        </Box>
+    )
+}
+
 
