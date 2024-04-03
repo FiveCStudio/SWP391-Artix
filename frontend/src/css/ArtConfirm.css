@@ -90,3 +90,16 @@
     background: #d17842;
     transition: all 200ms;
 }
+.form .checkout-btn:active {
+    scale: 0.95;
+}
+
+.form .checkout-btn:hover {
+    color: #d17842;
+    border: 2px solid #d17842;
+    background: transparent;
+}
+
+.dialog-custom .MuiPaper-root {
+    background: none !important;
+}
