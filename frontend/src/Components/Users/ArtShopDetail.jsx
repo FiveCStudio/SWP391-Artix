@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Backdrop, Box, Button, CircularProgress, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getArtDetail } from '../../API/ArtShop/ArtShopServices';
