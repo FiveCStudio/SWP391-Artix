@@ -12,14 +12,8 @@ namespace backend.Entities
         public int Likes { get; set; }
         public bool Purchasable { get; set; }
         public double Price { get; set; }
-
         public string? ImageFile { get; set; } // Thêm cột ImageFile kiểu BLOB
-
-
-
-
         public ICollection<ArtworkTag> ArtworkTag { get; set; }
-
         public Artworks(){
             Purchasable = false;
             }
