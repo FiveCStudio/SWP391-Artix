@@ -9,6 +9,7 @@ import html2canvas from 'html2canvas';
 import { Link } from 'react-router-dom';
 import ArtShopDialog from './ArtShopDialog.jsx';
 import { ThemeContext } from '../Themes/ThemeProvider.tsx';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 function ArtShop() {
     
     const auth = JSON.parse(sessionStorage.getItem("auth"));
@@ -113,7 +114,7 @@ function ArtShop() {
                         <div class="card1" key={index}>
                             <div class="card1-info">
                             <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
-                                <Card sx={{ width: 280,height:'auto', background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
+                                <Card sx={{ width: 280,height:'auto', background: theme.backgroundColor3, display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h6" component="div">
                                             {art?.artworkName}
@@ -124,7 +125,7 @@ function ArtShop() {
 
                                         <Typography variant="body2" color="text.secondary">
                                             <IconButton aria-label="add to favorites">
-                                                <Headset color='primary' />
+                                                <FavoriteBorderIcon sx={{ color: pink[500] }} />
                                             </IconButton>
                                             {art?.likes}
                                             <IconButton aria-label="share">
@@ -133,14 +134,14 @@ function ArtShop() {
                                             {formatMoney(art?.price)}
                                         </Typography>
                                     </CardContent>
-                                    <CardActions sx={{ paddingLeft: 3 }}>
-                                        <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More />Detail</Button>
+                                    <CardActions >
+                                        <Button sx={{ width: '100%',marginBottom:'5px' }} variant="contained" size="small" title='Detail'><More />Detail</Button>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
                                             art?.status ===
                                             "Đã thanh toán"
                                             &&
-                                            <Button sx={{ minWidth: 0 }}
+                                            <Button sx={{ width: '100%',marginBottom:'4px' }}
                                                 variant="contained" size="small" title='Dowload' onClick={() => handleDownload(`img-${index}`)}>
                                                 <Download />
                                             </Button>}
