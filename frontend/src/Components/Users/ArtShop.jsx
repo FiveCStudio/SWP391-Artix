@@ -8,6 +8,7 @@ import "../../css/ArtShop.css";
 import html2canvas from 'html2canvas';
 import { Link } from 'react-router-dom';
 import ArtShopDialog from './ArtShopDialog.jsx';
+
 function ArtShop() {
     const auth = JSON.parse(sessionStorage.getItem("auth"));
     const [dataState, setDataSate] = useState([]);
@@ -40,6 +41,8 @@ function ArtShop() {
             handleClose();
         }
     }
+
+
     function formatMoney(amount) {
         return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
