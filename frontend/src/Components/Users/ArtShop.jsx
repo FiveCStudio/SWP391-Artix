@@ -60,3 +60,53 @@ function ArtShop() {
                 open={open}
             >
                 <CircularProgress color="inherit" />
+                </Backdrop>
+            {openDowload && <ArtShopDialog open={openDowload} handleClose={handleClose} handleYesClick={handleYesClick} />}
+            <h1>
+                Purchasable Artworks
+            </h1>
+            <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", mt: 4 }}>
+                {dataState?.listItem?.map((i, index) => {
+                    return (
+                        <div class="card1" key={index}>
+                            <div class="card1-info">
+                                <Card sx={{ width: 400, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 5 }}>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {i?.artworkName}
+                                        </Typography>
+                                        <div>
+                                            <img id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + i?.image} alt={i?.artworkName} />
+                                        </div>
+
+                                        <Typography variant="body2" color="text.secondary">
+                                            <IconButton aria-label="add to favorites">
+                                                <Headset color='primary' />
+                                            </IconButton>
+                                            {i?.likes}
+                                            <IconButton aria-label="share">
+                                                <Discount sx={{ color: pink[500] }} />
+                                            </IconButton>
+                                            {formatMoney(i?.price)}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions sx={{ paddingLeft: 3 }}>
+                                        <Link to={`/characters/artshop/${i?.artworkID}`}><Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More /></Button></Link>
+                                        {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
+                                        {
+                                            i?.status ===
+                                            "Đã thanh toán"
+                                            &&
+                                            <Button sx={{ minWidth: 0 }}
+                                                variant="contained" size="small" title='Dowload' onClick={() => handleDownload(`img-${index}`)}>
+                                                <Download />
+                                            </Button>}
+                                    </CardActions>
+                                </Card>
+                            </div>
+                        </div>
+                    )
+                })
+                }
+            </Box>
+
