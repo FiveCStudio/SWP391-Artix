@@ -87,30 +87,6 @@ export default function ArtShopConfirm(props) {
                             placeholder=""
                         />
                     </label>
-                    {/* <div class="split">
-                        <label for="ExDate" class="label">
-                            <span class="title">Expiry Date</span>
-                            <input
-                                id="ExDate"
-                                class="input-field"
-                                type="text"
-                                name="input-name"
-                                title="Expiry Date"
-                                placeholder="01/23"
-                            />
-                        </label>
-                        <label for="cvv" class="label">
-                            <span class="title"> CVV</span>
-                            <input
-                                id="cvv"
-                                class="input-field"
-                                type="number"
-                                name="cvv"
-                                title="CVV"
-                                placeholder="CVV"
-                            />
-                        </label>
-                    </div> */}
                     <button class="checkout-btn" type='submit'>Checkout</button>
                 </form>
             </section>
