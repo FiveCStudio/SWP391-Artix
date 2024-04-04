@@ -8,7 +8,7 @@ export interface Package {
 
 export interface CurrentPackage {
     currentPackageId: string | number;
-    creatorId: string | number; // from table account FK
+    creatorId: string | number; // from table creator FK
     packageId: string | number; // from table package FK
     Date: string | Date; // ISO date
 }

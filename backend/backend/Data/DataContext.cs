@@ -48,6 +48,8 @@ namespace backend.Entities
             modelBuilder.Entity<ArtworkTag>()
             .HasKey(t => new { t.ArtworkID, t.TagID });
 
+            
+
             base.OnModelCreating(modelBuilder);
         }
     }

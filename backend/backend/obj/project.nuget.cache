@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "w8pFnzbyw/6JISXZJxfeL21O2g2MOTK1E/hx8J8G1WXdlgNrHjL3SrZonWrLsdF+rqeuLO5aDIIUoXmqyT/h0A==",
+  "dgSpecHash": "buRgemcsej4Swn5Af5kPhjs0gNWAjUo4Gf3WAsrYjvbtcF9+qa+UxTawRlIpcq0Y+RD0FUUCraxdrM3gnnMOHQ==",
   "success": true,
   "projectFilePath": "/Volumes/Ze_Data/Document/ReactProjects/SWP391-Artix/backend/backend/backend.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,7 @@
     "/Users/hendrix/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.3/microsoft.aspnetcore.cryptography.keyderivation.8.0.3.nupkg.sha512",
     "/Users/hendrix/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/8.0.3/microsoft.aspnetcore.identity.entityframeworkcore.8.0.3.nupkg.sha512",
     "/Users/hendrix/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
-    "/Users/hendrix/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.4/microsoft.codeanalysis.analyzers.3.3.4.nupkg.sha512",
+    "/Users/hendrix/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.3/microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
     "/Users/hendrix/.nuget/packages/microsoft.codeanalysis.common/4.5.0/microsoft.codeanalysis.common.4.5.0.nupkg.sha512",
     "/Users/hendrix/.nuget/packages/microsoft.codeanalysis.csharp/4.5.0/microsoft.codeanalysis.csharp.4.5.0.nupkg.sha512",
     "/Users/hendrix/.nuget/packages/microsoft.codeanalysis.csharp.workspaces/4.5.0/microsoft.codeanalysis.csharp.workspaces.4.5.0.nupkg.sha512",

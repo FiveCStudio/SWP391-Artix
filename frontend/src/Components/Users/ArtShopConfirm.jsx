@@ -12,7 +12,6 @@ export default function ArtShopConfirm(props) {
     } = props;
     const auth = JSON.parse(sessionStorage.getItem("auth"));
     const [dataItem, setDataItem] = React.useState({});
-    const navigate = useNavigate()  
     const convertData = (value) => {
         return {
             orderDetailID: 0,
