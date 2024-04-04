@@ -87,11 +87,13 @@ public class CommissionController : ControllerBase
         {
             return NotFound();
         }
+
         _context.Commission.Remove(commission);
         await _context.SaveChangesAsync();
 
         return NoContent();
     }
+
     private bool CommissionExists(int commissionId)
     {
         return _context.Commission.Any(e => e.CommissionID == commissionId);

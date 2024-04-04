@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -77,6 +78,10 @@ export default function PostWork() {
       console.log(err)
     }
   }
+  function formatMoney(amount) {
+    amount *= 1000; 
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
   function TagList() {
     return (
       <>
@@ -144,7 +149,7 @@ export default function PostWork() {
             }
             <div style={{ margin: 'auto 5px', }}>
               {artwork?.purchasable ?
-                  <Chip icon={<AttachMoneyIcon />} label={artwork?.price} onClick={handleOpen} style={{ fontSize: '20px', padding: '20px', fontWeight: '600', backgroundColor: '#61dafb' }} />
+                  <Chip label= {formatMoney(artwork?.price)} onClick={handleOpen} style={{ fontSize: '20px', padding: '20px', fontWeight: '600', backgroundColor: '#61dafb' }} />
                 : ""}
             </div>
           </div>
@@ -157,3 +162,4 @@ export default function PostWork() {
     </Box >
   )
 }
+

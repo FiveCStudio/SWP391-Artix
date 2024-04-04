@@ -145,14 +145,14 @@ public class OrderDetailController : ControllerBase
         SellerName = join.Seller.UserName,
         DateOfPurchase = join.OrderDetail.DateOfPurchase,
         Price = join.OrderDetail.Price,
-
+        
     })
     .ToListAsync();
 
         return Ok(orderDetails);
     }
 
-    // POST: api/OrderDetail
+        // POST: api/OrderDetail
     [HttpPost]
     public async Task<ActionResult<OrderDetail>> PostOrderDetail(OrderDetail orderDetail)
     {
@@ -190,7 +190,7 @@ public class OrderDetailDTO
     public int ArtWorkID { get; set; }
     public string BuyerName { get; set; }
     public string SellerName { get; set; }
-    public DateTime DateOfPurchase { get; set; }
+    public DateTime  DateOfPurchase { get; set; }
     public double Price { get; set; }
-
+    
 }

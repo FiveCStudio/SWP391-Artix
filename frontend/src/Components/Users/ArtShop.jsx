@@ -1,3 +1,4 @@
+
 import { Backdrop, Box, Button, Card, CardActions, CardContent, CircularProgress, IconButton, Pagination, Stack, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { useAuth } from '../AuthenContext.tsx'
@@ -46,8 +47,10 @@ function ArtShop() {
 
 
     function formatMoney(amount) {
-        return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        amount *= 1000; 
+        return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     }
+    
 
     const downloadSectionAsImage = async (elementId) => {
         const element = document.getElementById(elementId);
@@ -174,3 +177,4 @@ function ArtShop() {
 }
 
 export default ArtShop
+
