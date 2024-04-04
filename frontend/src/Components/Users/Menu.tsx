@@ -42,7 +42,7 @@ export default function Menu() {
 
   function LoginButton() {
     return (
-      <Button color="inherit"><Link to={"/"}>Login</Link></Button>
+      <Link to={"/"}> <h3 style={{fontWeight:'normal'}}>Login</h3></Link>
     )
   }
   return (
