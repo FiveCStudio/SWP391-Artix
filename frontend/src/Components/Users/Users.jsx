@@ -23,6 +23,7 @@ import Payment from './Payment.tsx';
 import ProtectedRoute from '../../ProtectedRoutes/ProtectedRoute.tsx';
 import ArtShop from './ArtShop.jsx';
 import ArtShopDetail from './ArtShopDetail.jsx';
+import PackagePage from './PackagePage.tsx';
 export default function Users() {
   return (
     <div>
@@ -44,6 +45,7 @@ export default function Users() {
             <Route path={`dashboarduser`} element={<DashboardUser />} />
             <Route path={`profile/:id/artwork/:id`} element={<ArtPost />} />
             <Route path={`artshop`} element={<ArtShop />} />
+            <Route path={`package`} element={<PackagePage />} />
           </Route>
           <Route path={`artwordrecomment`} element={<SeeMoreOfArt1 />} />
           <Route path={`userrecomment`} element={<SeeMoreUser />} />
