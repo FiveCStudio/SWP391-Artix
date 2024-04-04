@@ -18,6 +18,7 @@
     max-height: 500px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     transition: 0.5s ease-in-out;
 }
 
@@ -35,6 +36,7 @@
     max-height: 500px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     transition: 0.5s ease-in-out;
 }
 
@@ -43,6 +45,12 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 /* End card */
+
+.buyBtn{
+  width: 100%;
+  margin: auto;
+}
+
 
 /* Premium Text */
 .premium-typography {
