@@ -70,7 +70,7 @@ namespace backend.Controllers
                 await _context.SaveChangesAsync();
                 var message = new MailMessage()
                 {
-                    From = new MailAddress("anh0180666@huce.edu.vn"),
+                    From = new MailAddress("NhanHTSE171117@fpt.edu.vn"),
                     Subject = "Orders",
                     IsBodyHtml = true,
 
@@ -126,7 +126,7 @@ namespace backend.Controllers
 
                 var messageSeller = new MailMessage()
                 {
-                    From = new MailAddress("anh0180666@huce.edu.vn"),
+                    From = new MailAddress("NhanHTSE171117@fpt.edu.vn"),
                     Subject = "Orders",
                     IsBodyHtml = true,
 
@@ -186,7 +186,7 @@ namespace backend.Controllers
                 var smtp = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
-                    Credentials = new NetworkCredential("anh0180666@huce.edu.vn", "Anh686868@"),
+                    Credentials = new NetworkCredential("NhanHTSE171117@fpt.edu.vn", "Nhan@2809"),
                     EnableSsl = true,
                 };
 
