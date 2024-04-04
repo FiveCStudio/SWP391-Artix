@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Entities;
+using System.Net;
 [ApiController]
 [Route("api/[controller]")]
 
@@ -28,6 +29,7 @@ public class AccountController : ControllerBase
          RoleID = ac.RoleID,
          Password = ac.Password,
          Email = ac.Email,
+         BanAccount= ac.BanAccount,
      })
      .ToListAsync();
 
@@ -57,8 +59,9 @@ public class AccountController : ControllerBase
                 AccountID = ac.AccountID,
                 RoleID = ac.RoleID,
                 Password = ac.Password,
-                Email = ac.Email
-                // Other properties...
+                Email = ac.Email,
+
+                BanAccount = ac.BanAccount,
             })
             .FirstOrDefaultAsync();
 
@@ -69,16 +72,53 @@ public class AccountController : ControllerBase
 
         return account;
     }
-     [HttpPost]
-    public async Task<ActionResult<Account>> PostAccount(Account account)
+    [HttpPost("CreateAccount")]
+    public async Task<IActionResult> CheckAccount([FromBody] Account accountToCheck)
     {
-        _context.Account.Add(account);
-        await _context.SaveChangesAsync();
+        try
+        {
+            // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+            var existingAccount = await _context.Account.FirstOrDefaultAsync(ac => ac.Email == accountToCheck.Email);
 
-        return CreatedAtAction(nameof(GetAccount), new { id = account.AccountID }, account);
+            if (existingAccount != null)
+            {
+                // Nếu tài khoản đã tồn tại, trả về lỗi BadRequest
+                return BadRequest("Account already exists.");
+            }
+
+            // Nếu tài khoản chưa tồn tại, thêm tài khoản mới vào cơ sở dữ liệu
+            _context.Account.Add(accountToCheck);
+            await _context.SaveChangesAsync();
+
+            // Trả về tài khoản đã tạo thành công
+            return CreatedAtAction(nameof(GetAccountById), new { id = accountToCheck.AccountID }, accountToCheck);
+        }
+        catch (Exception ex)
+        {
+            // Xử lý lỗi nếu có
+            return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred while processing your request.");
+        }
     }
 
-    
+
+    [HttpPut("{accountId}")]
+    public async Task<IActionResult> BanAccount(int accountId)
+    {
+        var account = await _context.Account.FirstOrDefaultAsync(ac => ac.AccountID == accountId);
+
+        if (account == null)
+        {
+            return NotFound(); // Trả về mã lỗi 404 nếu không tìm thấy tài khoản
+        }
+
+        account.BanAccount = true; // Cập nhật trạng thái BanAccount thành true
+
+        _context.Account.Update(account);
+        await _context.SaveChangesAsync();
+
+        return NoContent(); // Trả về mã trạng thái 204 nếu cập nhật thành công
+    }
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> PutAccount(int id, Account account)
@@ -160,6 +200,7 @@ public class AccountController : ControllerBase
         // Nếu email và mật khẩu đều khớp, trả về tài khoản
         return account;
     }
+
 
 
 

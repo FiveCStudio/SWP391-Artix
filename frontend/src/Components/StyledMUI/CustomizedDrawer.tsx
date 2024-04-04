@@ -21,7 +21,8 @@ import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import {ThemeContext} from '../Themes/ThemeProvider.tsx'
 import AppLogo from './AppLogo.jsx';
 import CustomizedButton from './CustomizedListedButton.tsx';
-
+import { Link } from 'react-router-dom';
+import RestoreIcon from '@mui/icons-material/Restore';
 export default function CustomizedDrawer() {
   const {theme} = useContext(ThemeContext)
   const [drawer, SetDrawer] = useState(false)
@@ -30,7 +31,21 @@ export default function CustomizedDrawer() {
   }
 
   const HomePage = ['View All', 'Hot Topic', 'You Loved These', 'Explore']
-  const Personal = ['Your Works', 'Your Commisions', 'Your Requests']
+  const Personal = ['Transaction History', 'Your Commisions', 'Your Requests']
+  const linkListPersonal = [
+    'transaction',
+    'yourcommision',
+    'yourrequest',
+    `randomword`
+
+  ];
+  const linkListHomePage = [
+    `/characters`,
+    `artwordrecomment`,
+    `artwordrecomment`,
+
+
+  ];
 
   const IconListHomePage = [
     <CollectionsIcon />,
@@ -39,7 +54,7 @@ export default function CustomizedDrawer() {
     <ExploreIcon/>,
   ]
   const IconListPersonal = [
-    <CropOriginalIcon/>,
+    <RestoreIcon/>,
     <MarkunreadMailboxRoundedIcon/>,
     <DesignServicesRoundedIcon/>
   ]
@@ -60,7 +75,7 @@ export default function CustomizedDrawer() {
       <List>
         {HomePage.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <CustomizedButton >
+            <CustomizedButton  component={Link} to={linkListHomePage[index]} >
               <ListItemIcon sx={{color:theme.color}}>
                   {IconListHomePage[index]}
               </ListItemIcon>
@@ -75,7 +90,7 @@ export default function CustomizedDrawer() {
       <List>
         {Personal.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <CustomizedButton >
+            <CustomizedButton component={Link} to={linkListPersonal[index]} >
               <ListItemIcon sx={{color:theme.color}}>
                 {IconListPersonal[index]}
               </ListItemIcon>
