@@ -104,7 +104,9 @@ export default function PostWork() {
         <div className='info-postwork'>
           {artwork?.purchasable ? <Watermark /> : ""}
           <div className='imgpost' style={{ backgroundColor: theme.hoverBackgroundColor }}>
-            <img alt={artwork?.artworkName} src={`data:image/jpeg;base64,${artwork?.imageFile}`} />
+            
+            <img style = {{pointerEvents: artwork?.purchasable ? "none" : "auto" }} alt={artwork?.artworkName} src={`data:image/jpeg;base64,${artwork?.imageFile}`} /> 
+           
           </div>
           <Divider orientation='vertical' />
           <div className='contentpost'>

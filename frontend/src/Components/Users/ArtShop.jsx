@@ -113,8 +113,9 @@ function ArtShop() {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
-                            <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
+                           
                                 <Card sx={{ width: 280,height:'auto', background: theme.backgroundColor3, display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
+                                <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h6" component="div">
                                             {art?.artworkName}
@@ -133,20 +134,20 @@ function ArtShop() {
                                             </IconButton>
                                             {formatMoney(art?.price)}
                                         </Typography>
-                                    </CardContent>
-                                    <CardActions >
-                                        <Button sx={{ width: '100%',marginBottom:'5px' }} variant="contained" size="small" title='Detail'><More />Detail</Button>
+                                    </CardContent></Link>
+                                    <CardActions  >
+                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More />Detail</Button>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
                                             art?.status ===
                                             "Đã thanh toán"
                                             &&
-                                            <Button sx={{ width: '100%',marginBottom:'4px' }}
+                                            <Button sx={{ minWidth: '30%',marginBottom:'5px' }}
                                                 variant="contained" size="small" title='Dowload' onClick={() => handleDownload(`img-${index}`)}>
                                                 <Download />
                                             </Button>}
                                     </CardActions>
-                                </Card></Link>
+                                </Card>
                             </div>
                         </div>
                     )
