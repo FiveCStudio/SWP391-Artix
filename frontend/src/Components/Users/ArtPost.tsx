@@ -72,7 +72,7 @@ export default function PostWork() {
       const response = await DeleteArtById(artwork?.artworkID??"")
       console.log(response.data)
       setLoading(false)
-      navigate(`/characters/profile/${savedUser.creatorID}`)
+      navigate(`/characters/profile/${savedUser?.creatorID}`)
     }catch(err){
       console.log(err)
     }
@@ -137,7 +137,7 @@ export default function PostWork() {
                 <h4 style={{ paddingTop: "5px" }} className='addfavourite'>Comment</h4>
               </a>
             </div>
-            {creator?.creatorID === savedUser.creatorID ?
+            {creator?.creatorID === savedUser?.creatorID ?
               <Button onClick={handleDelete} variant='contained' color='error' >Delete Artwork</Button>
               :
               ""
