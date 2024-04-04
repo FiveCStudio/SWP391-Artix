@@ -18,7 +18,7 @@ public class AccountController : ControllerBase
     {
         _context = context;
     }
-    
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Account>>> GetAccount()
     {
@@ -30,7 +30,7 @@ public class AccountController : ControllerBase
          RoleID = ac.RoleID,
          Password = ac.Password,
          Email = ac.Email,
-         BanAccount= ac.BanAccount,
+         BanAccount = ac.BanAccount,
      })
      .ToListAsync();
 
@@ -158,7 +158,6 @@ public class AccountController : ControllerBase
 
         return NoContent();
     }
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAccount(int id)
     {

@@ -17,7 +17,7 @@ public class PaymentController : ControllerBase
         _context = context;
     }
 
-    
+
     [HttpGet("admin-qr")]
     public ActionResult<string> GetAdminQrCode()
     {
@@ -52,7 +52,7 @@ public class PaymentController : ControllerBase
     // POST: api/PayPalAccount
 
     [HttpPost]
-    public ActionResult<string> PostQrCode([FromBody] Payment  qrCodeDTO)
+    public ActionResult<string> PostQrCode([FromBody] Payment qrCodeDTO)
     {
         try
         {

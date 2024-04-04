@@ -52,6 +52,11 @@ namespace backend.Service
             return response;
         }
 
+<<<<<<< HEAD
       
+=======
+
+
+>>>>>>> THUCVIP
     }
 }

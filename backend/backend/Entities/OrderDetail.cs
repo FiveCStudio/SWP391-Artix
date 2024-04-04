@@ -12,9 +12,18 @@ namespace backend.Entities
         public DateTime DateOfPurchase { get; set; }
         public double Price { get; set; }
         public Order Order { get; set; }
+<<<<<<< HEAD
         public string  PurchaseConfirmationImage  { get; set; }
         [NotMapped]
         public  string email { get; set; }
+=======
+
+        
+
+        public string? PurchaseConfirmationImage { get; set; }
+         [NotMapped]
+        public  string? email { get; set; }
+>>>>>>> THUCVIP
 
     }
 }
