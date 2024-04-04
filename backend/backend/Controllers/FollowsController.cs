@@ -23,7 +23,7 @@ public class FollowsController : ControllerBase
     public async Task<ActionResult<List<Creator>>> GetFollowers(int creatorId)
     {
         var followers = await _context.Follows
-            .Where(f => f.CreatorID== creatorId)
+            .Where(f => f.CreatorID == creatorId)
             .Select(f => f.FollowerID)
             .ToListAsync();
 
@@ -40,7 +40,7 @@ public class FollowsController : ControllerBase
         {
             FollowerID = followerId,
             CreatorID = creatorId,
-            
+
         };
 
         _context.Follows.Add(follow);
@@ -76,7 +76,7 @@ public class FollowsController : ControllerBase
 
         return Ok();
     }
-    
+
     private bool FollowExists(int id)
     {
         return _context.Follows.Any(e => e.FollowerID == id);
