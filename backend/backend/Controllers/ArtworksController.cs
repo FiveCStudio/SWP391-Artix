@@ -698,6 +698,8 @@ public class ArtworksController : ControllerBase
         // Ví dụ: Xóa các báo cáo liên quan đến tác phẩm
         var reports = await _context.Reports.Where(r => r.ReportedCreatorID == artworkId).ToListAsync();
         _context.Reports.RemoveRange(reports);
+        var orderdetail = await _context.OrderDetail.Where(or => or.ArtWorkID == artworkId).ToListAsync();
+        _context.OrderDetail.RemoveRange(orderdetail);
 
         // Ví dụ: Xóa các thông báo liên quan đến tác phẩm
         var notifications = await _context.Notification.Where(n => n.ArtWorkID == artworkId).ToListAsync();
