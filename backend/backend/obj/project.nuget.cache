@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uzDW9A0y4upViKFaGS6B1y52idP78s9Yr1KYL87FqxjmAyMnNAmgGaPP8j7+PxGIIVFmRvr6lguPfXty1LZ21Q==",
+  "dgSpecHash": "ymzutEVgkUTiG4XV1NC40fF3WglgOpHdJUFevZkDLt+n1IWL9ysanRRF1MN+s7dqE6t1Xtt3Ws9HyHgVGYR49g==",
   "success": true,
   "projectFilePath": "D:\\FPT_Learning\\SWP391\\SWP391-Artix\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -78,12 +78,6 @@
     "C:\\Users\\bolic\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\FPT_Learning\\SWP391\\SWP391-Artix\\backend\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    },
     {
       "code": "NU1701",
       "level": "Warning",
