@@ -1,9 +1,13 @@
 {
   "version": 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
   "dgSpecHash": "k3NA0qflBcju1RyFjdNuKpP1un1AGtpKilkHPnl3WEE1yB0HH6Pv9LWY3vXMnxWEI6D93ztQAyPR6S2PNq330w==",
 =======
   "dgSpecHash": "MxavPxSIzfgES4bHnHFRJHVakr1GtQoXowKHaTT6ueljxitF+7YFGiJb7mjwC2u5rY7G/7dxua2B/qtd/m0a5w==",
+>>>>>>> Main
+=======
+  "dgSpecHash": "oL/3HGRnnuRh1g0r9cd4112SHqKh98Z9QjIzMMA1m/QA/3VRCuqcphcjIj9YW7ebPPmV+IN2H1xJb/DR/6hA8w==",
 >>>>>>> Main
   "success": true,
   "projectFilePath": "D:\\FPT_Learning\\SWP391\\SWP391-Artix\\backend\\backend\\backend.csproj",

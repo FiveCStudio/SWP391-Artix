@@ -3,7 +3,6 @@ import { Route, Routes, Outlet } from "react-router-dom"
 // eslint-disable-next-line
 import HomePage from './MainPage/HomePage.tsx';
 // eslint-disable-next-line 
-import Page from './Page.jsx';
 import Footer from './Footer.jsx';
 import Menu from './Menu.tsx';
 import Background from '../Themes/Background.jsx';
@@ -19,8 +18,8 @@ import DashboardUser from './DashboardUser.tsx';
 import CommissionForm from './CommissionForm.tsx';
 import YourCommission from './YourCommission.tsx';
 import YourRequest from './YourRequest.tsx';
-import TransactionHistory from './TransactionHistory.jsx';
-import Payment from './Payment.jsx';
+import TransactionHistory from './TransactionHistory.tsx';
+import Payment from './Payment.tsx';
 import ProtectedRoute from '../../ProtectedRoutes/ProtectedRoute.tsx';
 export default function Users() {
   return (
@@ -42,10 +41,15 @@ export default function Users() {
             <Route path={`artworkform`} element={<UploadArtwork />} />
             <Route path={`profile/:id/commission`} element={<CommissionForm />} />
             <Route path={`dashboarduser`} element={<DashboardUser />} />
+            <Route path={`profile/:id/artwork/:id`} element={<ArtPost />} />
           </Route>
           <Route path={`artwordrecomment`} element={<SeeMoreOfArt1 />} />
           <Route path={`userrecomment`} element={<SeeMoreUser />} />
-          <Route path={`randomword`} element={<SeeMoreOfArt1 />} />
+          <Route path={`randomword`} element={<SeeMoreForYou/>} />
+          <Route path={`artwordrecomment/artwork/:id`} element={<ArtPost />} />
+          <Route path={`randomword/artwork/:id`} element={<ArtPost />} />
+          
+
 
 
           {/* <Route path={`payment`} element={<Payment/>}/> */}
