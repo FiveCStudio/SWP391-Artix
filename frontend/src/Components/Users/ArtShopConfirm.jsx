@@ -2,6 +2,7 @@ import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import "../../css/ArtConfirm.css"
 import { VnpayPayment } from '../../API/ArtShop/ArtShopServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function ArtShopConfirm(props) {
     let {
@@ -11,7 +12,7 @@ export default function ArtShopConfirm(props) {
     } = props;
     const auth = JSON.parse(sessionStorage.getItem("auth"));
     const [dataItem, setDataItem] = React.useState({});
-
+    const navigate = useNavigate()  
     const convertData = (value) => {
         return {
             orderDetailID: 0,
