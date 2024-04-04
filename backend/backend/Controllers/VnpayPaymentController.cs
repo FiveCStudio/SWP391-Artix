@@ -1,12 +1,13 @@
 ﻿using backend.Entities;
+using backend.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Net;
 using System.Net.Mail;
+using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
-    public class VnpayPaymentController : Controller
+    public class VnpayPaymentController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IVnPayService _vnPayService;
@@ -16,6 +17,7 @@ namespace backend.Controllers
             _context = context;
             _vnPayService = vnPayService;
         }
+
         [HttpPost("Payment")]
         public async Task<IActionResult> CreatePaymentUrl([FromBody] OrderDetail model)
         {
@@ -197,5 +199,6 @@ namespace backend.Controllers
                 return Redirect("http://localhost:3000/characters/artshop");
             }
         }
+
     }
 }
