@@ -120,7 +120,7 @@ public class CommissionFormController : ControllerBase
 
 
 
-[HttpGet("total-commission/{creatorId}")]
+    [HttpGet("total-commission/{creatorId}")]
     public async Task<ActionResult<int>> GetTotalCommissionByCreatorId(int creatorId)
     {
         try
@@ -217,10 +217,6 @@ public class CommissionFormController : ControllerBase
 
         return Ok(commissionForms);
     }
-
-
-
-
     [HttpGet("total-sent-commission/{creatorId}")]
     public async Task<ActionResult<double>> GetTotalSentCommissionByCreatorId(int creatorId)
     {
@@ -229,7 +225,7 @@ public class CommissionFormController : ControllerBase
             // Tính tổng lượng gửi commission theo CreatorID
             var totalSentCommission = await _context.CommissionForm
                 .Where(cf => cf.RequestorID == creatorId)
-                .SumAsync(cf => cf.CommissionFormID); 
+                .SumAsync(cf => cf.CommissionFormID);
 
             return totalSentCommission;
         }
