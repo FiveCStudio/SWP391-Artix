@@ -132,9 +132,9 @@ export default function TransactionHistory() {
         <Box sx={{ width: '90%', margin: 'auto' }}>
           <Box sx={{ borderBottom: 1, borderColor: theme.color3 }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-              <Tab label={<div style={{ display: 'flex', color: theme.color2 }}><ShoppingCartIcon style={{ transform: 'translateY(-5px)' }} />Bought History</div>} {...a11yProps(0)} />
-              <Tab label={<div style={{ display: 'flex', color: theme.color2 }}><AttachMoneyIcon style={{ transform: 'translateY(-5px)' }} />Sold History</div>} {...a11yProps(1)} />
-
+              <Tab label={<div style={{ display: 'flex', color: theme.color2 }}><ShoppingCartIcon style={{ transform: 'translateY(-5px)' }} />Bought Artworks History</div>} {...a11yProps(0)} />
+              <Tab label={<div style={{ display: 'flex', color: theme.color2 }}><AttachMoneyIcon style={{ transform: 'translateY(-5px)' }} />Sold Artworks History</div>} {...a11yProps(1)} />
+              <Tab label={<div style={{ display: 'flex', color: theme.color2 }}><AttachMoneyIcon style={{ transform: 'translateY(-5px)' }} />Package Purchased History</div>} {...a11yProps(2)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
@@ -142,13 +142,11 @@ export default function TransactionHistory() {
               <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                 <TableHead>
                   <TableRow style={{ backgroundColor: '#0b81ff' }}>
-
                     <TableCell style={{ color: 'white' }} align="left">Order ID</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Artist</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Pice</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Date</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Status</TableCell>
-
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -183,11 +181,6 @@ export default function TransactionHistory() {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </TableContainer>
-
-
-
-
-
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             <TableContainer component={Paper} style={{ marginBottom: '50px', marginTop: '40px' }}>
@@ -237,6 +230,53 @@ export default function TransactionHistory() {
               />
             </TableContainer>
           </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <TableContainer component={Paper} style={{ marginBottom: '50px', marginTop: '40px' }}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table" >
+                <TableHead>
+                  <TableRow style={{ backgroundColor: '#0b81ff' }}>
+                    <TableCell style={{ color: 'white' }} align="left">Order ID</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Customer Name</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Pice</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Date</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {orderBySeller?.map((order) => (
+                    <TableRow
+                      key={order.orderID}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {order.orderID}
+                      </TableCell>
+                      {/* userNamereceiver là của người mua */}
+                      <TableCell align="left">{order.buyerName}</TableCell>
+                      <TableCell align="left">{order.price}</TableCell>
+                      <TableCell align="left">{order.dateOfPurchase}</TableCell>
+                      <TableCell align="left">
+                        {order.orderID === orderHeader?.find(header => header.orderID === order.orderID).orderID && orderHeader?.find(header => header.orderID === order.orderID)?.confirmation===true  ? 
+                        'Complete' : 
+                        'Admin is processing'}
+                      </TableCell>
+
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={5}
+                component="div"
+                count={Order.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </TableContainer>
+          </CustomTabPanel>
+
 
         </Box>
       </Box>
