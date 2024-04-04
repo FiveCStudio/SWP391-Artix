@@ -5,10 +5,10 @@ import { ThemeContext } from '../Themes/ThemeProvider.tsx';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 function DefaultCardStyle() {
     return (
-        <Card>
+        <Card className='cardDefault'>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -26,13 +26,18 @@ function DefaultCardStyle() {
                     </Typography>
                 </CardContent>
             </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    Share
+                </Button>
+            </CardActions>
         </Card>
     )
 }
 
 function PremiumCardStyle() {
     return (
-        <Card>
+        <Card className='cardPremium'>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -50,6 +55,11 @@ function PremiumCardStyle() {
                     </Typography>
                 </CardContent>
             </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    Share
+                </Button>
+            </CardActions>
         </Card>
     )
 }
@@ -57,11 +67,22 @@ function PremiumCardStyle() {
 export default function PackagePage() {
     const { theme } = useContext(ThemeContext)
     return (
-        <Box className='homepage'>
-            <Box>
-                <DefaultCardStyle />
-                <PremiumCardStyle />
+        <div className='packagePage'>
+            <Box
+                sx={{
+                    color: theme.color,
+                    backgroundColor: `rgba(${theme.rgbBackgroundColor},0.97)`,
+                    transition: theme.transition,
+                    width: '95%',
+                    margin: 'auto',
+                    borderRadius: '5px',
+                    marginBottom: '15px',
+                }}>
+                <Box className="packageContainer">
+                    <DefaultCardStyle />
+                    <PremiumCardStyle />
+                </Box>
             </Box>
-        </Box>
+        </div>
     )
 }
