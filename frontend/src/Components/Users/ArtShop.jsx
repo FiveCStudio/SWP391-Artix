@@ -121,7 +121,7 @@ function ArtShop() {
                                             {art?.artworkName}
                                         </Typography>
                                         <div>
-                                            <img id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
+                                            <img style = {{pointerEvents:'none'}} id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
                                         </div>
 
                                         <Typography variant="body2" color="text.secondary">
@@ -136,7 +136,8 @@ function ArtShop() {
                                         </Typography>
                                     </CardContent></Link>
                                     <CardActions  >
-                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More />Detail</Button>
+                                    <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
+                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More />Detail</Button></Link>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
                                             art?.status ===
