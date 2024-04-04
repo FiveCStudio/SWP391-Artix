@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Entities;
+using System.Net;
+using backend.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 
@@ -28,6 +30,7 @@ public class AccountController : ControllerBase
          RoleID = ac.RoleID,
          Password = ac.Password,
          Email = ac.Email,
+         BanAccount= ac.BanAccount,
      })
      .ToListAsync();
 
@@ -57,8 +60,9 @@ public class AccountController : ControllerBase
                 AccountID = ac.AccountID,
                 RoleID = ac.RoleID,
                 Password = ac.Password,
-                Email = ac.Email
-                // Other properties...
+                Email = ac.Email,
+
+                BanAccount = ac.BanAccount,
             })
             .FirstOrDefaultAsync();
 
@@ -69,18 +73,55 @@ public class AccountController : ControllerBase
 
         return account;
     }
-     [HttpPost]
-    public async Task<ActionResult<Account>> PostAccount(Account account)
+    [HttpPost("CreateAccount")]
+    public async Task<IActionResult> CheckAccount([FromBody] Account accountToCheck)
     {
-        _context.Account.Add(account);
-        await _context.SaveChangesAsync();
+        try
+        {
+            // Kiểm tra xem tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+            var existingAccount = await _context.Account.FirstOrDefaultAsync(ac => ac.Email == accountToCheck.Email);
 
-        return CreatedAtAction(nameof(GetAccount), new { id = account.AccountID }, account);
+            if (existingAccount != null)
+            {
+                // Nếu tài khoản đã tồn tại, trả về lỗi BadRequest
+                return BadRequest("Account already exists.");
+            }
+
+            // Nếu tài khoản chưa tồn tại, thêm tài khoản mới vào cơ sở dữ liệu
+            _context.Account.Add(accountToCheck);
+            await _context.SaveChangesAsync();
+
+            // Trả về tài khoản đã tạo thành công
+            return CreatedAtAction(nameof(GetAccountById), new { id = accountToCheck.AccountID }, accountToCheck);
+        }
+        catch (Exception ex)
+        {
+            // Xử lý lỗi nếu có
+            return StatusCode((int)HttpStatusCode.InternalServerError, "An error occurred while processing your request.");
+        }
     }
 
-    
 
-    [HttpPut("{id}")]
+    [HttpPut("{accountId}")]
+    public async Task<IActionResult> BanAccount(int accountId)
+    {
+        var account = await _context.Account.FirstOrDefaultAsync(ac => ac.AccountID == accountId);
+
+        if (account == null)
+        {
+            return NotFound(); // Trả về mã lỗi 404 nếu không tìm thấy tài khoản
+        }
+
+        account.BanAccount = true; // Cập nhật trạng thái BanAccount thành true
+
+        _context.Account.Update(account);
+        await _context.SaveChangesAsync();
+
+        return NoContent(); // Trả về mã trạng thái 204 nếu cập nhật thành công
+    }
+
+
+    [HttpPut("doitt/{id}")]
     public async Task<IActionResult> PutAccount(int id, Account account)
     {
         if (id != account.AccountID)
@@ -139,27 +180,39 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<Account>> Login(string email, string password)
+    public async Task<ActionResult<UserInfo>> Login(string email, string password)
     {
-        // Tìm tài khoản trong cơ sở dữ liệu dựa trên email
-        var account = await _context.Account
-            .FirstOrDefaultAsync(ac => ac.Email == email);
+        // Thực hiện join giữa bảng Account và bảng Creators
+        var userInfo = await (from account in _context.Account
+                              join creator in _context.Creators on account.AccountID equals creator.AccountID into creatorJoin
+                              from creator in creatorJoin.DefaultIfEmpty()
+                              where account.Email == email
+                              select new UserInfo
+                              {
+                                  AccountID = account.AccountID,
+                                  RoleID = account.RoleID,
+                                  Password = account.Password,
+                                  Email = account.Email,
+                                  BanAccount = account.BanAccount,
+                                  CreatorID = (int?)creator.CreatorID // Convert to nullable int to handle non-existence
+                              }).FirstOrDefaultAsync();
 
-        // Nếu không tìm thấy tài khoản với email cung cấp, trả về Unauthorized
-        if (account == null)
+        // Nếu không tìm thấy thông tin người dùng, trả về Unauthorized
+        if (userInfo == null)
         {
             return Unauthorized(); // 401 Unauthorized
         }
 
         // Kiểm tra mật khẩu
-        if (password != account.Password)
+        if (password != userInfo.Password)
         {
             return Unauthorized(); // 401 Unauthorized
         }
 
-        // Nếu email và mật khẩu đều khớp, trả về tài khoản
-        return account;
+        // Nếu thông tin xác thực hợp lệ, trả về thông tin người dùng dưới dạng UserInfo
+        return Ok(userInfo);
     }
+
 
 
 

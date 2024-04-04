@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -11,7 +12,7 @@ import { CheckLogin } from '../../Login/Norm/NormalLogin.tsx'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 import { useAuth } from '../../Components/AuthenContext.tsx';
-import LoadingScreen from '../Users/LoadingScreen.jsx'
+import LoadingScreen from '../LoadingScreens/LoadingScreenSpokes.jsx'
 import { useNavigate } from 'react-router-dom'
 
 export default function LoginForm({ disableOutsideClick, handleClick, backdrop, alternative }) {
@@ -44,7 +45,9 @@ export default function LoginForm({ disableOutsideClick, handleClick, backdrop, 
             navigate('/characters');
           }
           window.dispatchEvent(new Event('userLoggedIn'));
-          handleClick()
+          if (disableOutsideClick) {
+            const click = handleClick
+          }
         }
         catch (err) {
           console.log(err);
@@ -138,4 +141,5 @@ export default function LoginForm({ disableOutsideClick, handleClick, backdrop, 
       </div>
     </>
   );
+
 }

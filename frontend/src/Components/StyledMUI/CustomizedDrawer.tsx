@@ -17,11 +17,12 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import StarsIcon from '@mui/icons-material/Stars';
 import MarkunreadMailboxRoundedIcon from '@mui/icons-material/MarkunreadMailboxRounded';
 import DesignServicesRoundedIcon from '@mui/icons-material/DesignServicesRounded';
-import CropOriginalIcon from '@mui/icons-material/CropOriginal';
+import ShopIcon from '@mui/icons-material/Shop';
 import {ThemeContext} from '../Themes/ThemeProvider.tsx'
 import AppLogo from './AppLogo.jsx';
 import CustomizedButton from './CustomizedListedButton.tsx';
-
+import { Link } from 'react-router-dom';
+import RestoreIcon from '@mui/icons-material/Restore';
 export default function CustomizedDrawer() {
   const {theme} = useContext(ThemeContext)
   const [drawer, SetDrawer] = useState(false)
@@ -29,17 +30,33 @@ export default function CustomizedDrawer() {
     SetDrawer(!drawer)
   }
 
-  const HomePage = ['View All', 'Hot Topic', 'You Loved These', 'Explore']
-  const Personal = ['Your Works', 'Your Commisions', 'Your Requests']
+  const HomePage = ['View All', 'Hot Topic', 'You Loved These', 'Explore', 'Shop']
+  const Personal = ['Transaction History', 'Your Commisions', 'Your Requests']
+  const linkListPersonal = [
+    'transaction',
+    'yourcommision',
+    'yourrequest',
+    `randomword`
+
+  ];
+  const linkListHomePage = [
+    `/characters`,
+    `artwordrecomment`,
+    `artwordrecomment`,
+    `artwordrecomment`,
+    `artshop`,
+  ];
 
   const IconListHomePage = [
     <CollectionsIcon />,
     <WhatshotIcon/>,
     <StarsIcon/>,
     <ExploreIcon/>,
+    <ShopIcon/>,
+
   ]
   const IconListPersonal = [
-    <CropOriginalIcon/>,
+    <RestoreIcon/>,
     <MarkunreadMailboxRoundedIcon/>,
     <DesignServicesRoundedIcon/>
   ]
@@ -60,7 +77,7 @@ export default function CustomizedDrawer() {
       <List>
         {HomePage.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <CustomizedButton >
+            <CustomizedButton  component={Link} to={linkListHomePage[index]} >
               <ListItemIcon sx={{color:theme.color}}>
                   {IconListHomePage[index]}
               </ListItemIcon>
@@ -75,7 +92,7 @@ export default function CustomizedDrawer() {
       <List>
         {Personal.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <CustomizedButton >
+            <CustomizedButton component={Link} to={linkListPersonal[index]} >
               <ListItemIcon sx={{color:theme.color}}>
                 {IconListPersonal[index]}
               </ListItemIcon>
