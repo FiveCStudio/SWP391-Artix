@@ -203,7 +203,7 @@ public class ArtworksController : ControllerBase
                 Likes = a.Likes,
                 Purchasable = a.Purchasable,
                 Price = a.Price,
-                
+
             })
             .ToListAsync();
 
@@ -218,7 +218,7 @@ public class ArtworksController : ControllerBase
     [HttpGet("recent-artwork-count")]
     public async Task<IActionResult> GetRecentArtworkCount()
     {
-        
+
         var currentDate = DateTime.UtcNow;
 
         // Lấy ngày 7 ngày trước
@@ -315,9 +315,6 @@ public class ArtworksController : ControllerBase
 
         return Ok(artworks);
     }
-
-
-
     [HttpGet("ByCreatorIDNotImage/{CreatorID}")]
     public async Task<IActionResult> GetArtworkByCreatorIDNotImage(int CreatorID)
     {
@@ -474,19 +471,19 @@ public class ArtworksController : ControllerBase
             _context.Artworks.Add(artwork);
             await _context.SaveChangesAsync();
 
-
-
             // Lưu trữ ArtworkID đã được tạo tự động
             var artworkId = artwork.ArtworkID;
-
 
             // Thêm ArtworkTag vào cơ sở dữ liệu
             foreach (var artworkTag in artwork.ArtworkTag)
             {
-                // Thiết lập ArtworkID với giá trị đã được tạo tự động
-                artworkTag.ArtworkID = artworkId;
-
-                _context.ArtworkTag.Add(artworkTag);
+                // Kiểm tra xem đã tồn tại ArtworkTag với cùng ArtworkID và TagID chưa
+                if (!_context.ArtworkTag.Any(at => at.ArtworkID == artworkId && at.TagID == artworkTag.TagID))
+                {
+                    // Thiết lập ArtworkID với giá trị đã được tạo tự động
+                    artworkTag.ArtworkID = artworkId;
+                    _context.ArtworkTag.Add(artworkTag);
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -494,6 +491,7 @@ public class ArtworksController : ControllerBase
             return Ok(artwork);
         }
     }
+
 
 
 
@@ -677,43 +675,42 @@ public class ArtworksController : ControllerBase
 
 
 
-    
+
     [HttpDelete("{artworkId}")]
     public async Task<IActionResult> DeleteArtwork(int artworkId)
     {
-        
-            // Kiểm tra xem tác phẩm tồn tại hay không
-            var artwork = await _context.Artworks.FindAsync(artworkId);
-            if (artwork == null)
-            {
-                return NotFound("Artwork not found.");
-            }
 
-            // Xóa các dữ liệu liên quan trước
-            // Ví dụ: Xóa các bình luận liên quan đến tác phẩm
-            var comments = await _context.Comments.Where(c => c.ArtWorkID == artworkId).ToListAsync();
-            _context.Comments.RemoveRange(comments);
-
-            var artworkTags = await _context.ArtworkTag.Where(at => at.ArtworkID == artworkId).ToListAsync();
-            _context.ArtworkTag.RemoveRange(artworkTags);
-
-            // Ví dụ: Xóa các báo cáo liên quan đến tác phẩm
-            var reports = await _context.Reports.Where(r => r.ReportedCreatorID == artworkId).ToListAsync();
-            _context.Reports.RemoveRange(reports);
-
-            // Ví dụ: Xóa các thông báo liên quan đến tác phẩm
-            var notifications = await _context.Notification.Where(n => n.ArtWorkID == artworkId).ToListAsync();
-            _context.Notification.RemoveRange(notifications);
-            // Tiếp tục xóa các dữ liệu liên quan khác nếu cần
-
-            // Sau khi xóa các dữ liệu liên quan, xóa tác phẩm
-            _context.Artworks.Remove(artwork);
-            await _context.SaveChangesAsync();
-
-            return Ok("Artwork deleted successfully.");
+        // Kiểm tra xem tác phẩm tồn tại hay không
+        var artwork = await _context.Artworks.FindAsync(artworkId);
+        if (artwork == null)
+        {
+            return NotFound("Artwork not found.");
         }
-        
-    
 
+        // Xóa các dữ liệu liên quan trước
+        // Ví dụ: Xóa các bình luận liên quan đến tác phẩm
+        var comments = await _context.Comments.Where(c => c.ArtWorkID == artworkId).ToListAsync();
+        _context.Comments.RemoveRange(comments);
+
+        var artworkTags = await _context.ArtworkTag.Where(at => at.ArtworkID == artworkId).ToListAsync();
+        _context.ArtworkTag.RemoveRange(artworkTags);
+
+        // Ví dụ: Xóa các báo cáo liên quan đến tác phẩm
+        var reports = await _context.Reports.Where(r => r.ReportedCreatorID == artworkId).ToListAsync();
+        _context.Reports.RemoveRange(reports);
+        var orderdetail = await _context.OrderDetail.Where(or => or.ArtWorkID == artworkId).ToListAsync();
+        _context.OrderDetail.RemoveRange(orderdetail);
+
+        // Ví dụ: Xóa các thông báo liên quan đến tác phẩm
+        var notifications = await _context.Notification.Where(n => n.ArtWorkID == artworkId).ToListAsync();
+        _context.Notification.RemoveRange(notifications);
+        // Tiếp tục xóa các dữ liệu liên quan khác nếu cần
+
+        // Sau khi xóa các dữ liệu liên quan, xóa tác phẩm
+        _context.Artworks.Remove(artwork);
+        await _context.SaveChangesAsync();
+
+        return Ok("Artwork deleted successfully.");
+    }
 
 }

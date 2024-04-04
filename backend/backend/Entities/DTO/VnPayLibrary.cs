@@ -188,4 +188,7 @@ namespace backend.Entities.DTO
         }
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Main
