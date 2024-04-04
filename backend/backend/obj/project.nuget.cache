@@ -1,13 +1,18 @@
 {
   "version": 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
   "dgSpecHash": "TkmQFdniGv3EMqnlsPWMv3vsB205Y3bbfXh/9ttLC/UA2ImGmT7IP5YDpXHdo3Sqi1C6mdghQMfeF8Vhm6zqxw==",
 =======
   "dgSpecHash": "C28xcjuZCkCfw9+/DiNsQY6hY0+DIHLEM3TGAvLL0XKo67Ivtc5QObCfpYxPOu+qL2SGlB9fRE8gZBGne//Rww==",
 >>>>>>> THUCVIP
+=======
+  "dgSpecHash": "C28xcjuZCkCfw9+/DiNsQY6hY0+DIHLEM3TGAvLL0XKo67Ivtc5QObCfpYxPOu+qL2SGlB9fRE8gZBGne//Rww==",
+>>>>>>> THUCVIP
   "success": true,
-  "projectFilePath": "D:\\FPT_Learning\\SWP391\\SWP391-Artix\\backend\\backend\\backend.csproj",
+  "projectFilePath": "D:\\SWP391-Artix\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
+<<<<<<< HEAD
 <<<<<<< HEAD
     "C:\\Users\\bolic\\.nuget\\packages\\bouncycastle.cryptography\\2.3.0\\bouncycastle.cryptography.2.3.0.nupkg.sha512",
     "C:\\Users\\bolic\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -88,6 +93,8 @@
     "C:\\Users\\bolic\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\bolic\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
 =======
+=======
+>>>>>>> THUCVIP
     "C:\\Users\\THY\\.nuget\\packages\\bouncycastle.cryptography\\2.3.0\\bouncycastle.cryptography.2.3.0.nupkg.sha512",
     "C:\\Users\\THY\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\THY\\.nuget\\packages\\mailkit\\4.4.0\\mailkit.4.4.0.nupkg.sha512",
@@ -166,6 +173,9 @@
     "C:\\Users\\THY\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\THY\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\THY\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
+<<<<<<< HEAD
+>>>>>>> THUCVIP
+=======
 >>>>>>> THUCVIP
   ],
   "logs": [
@@ -174,7 +184,11 @@
       "level": "Warning",
       "warningLevel": 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
       "message": "Problem reading the cache file D:\\FPT_Learning\\SWP391\\SWP391-Artix\\backend\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
+      "message": "Problem reading the cache file D:\\SWP391-Artix\\backend\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> THUCVIP
 =======
       "message": "Problem reading the cache file D:\\SWP391-Artix\\backend\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
 >>>>>>> THUCVIP
