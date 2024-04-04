@@ -33,15 +33,15 @@ public class CreatorController : ControllerBase
                 BackgroundPicture = c.BackgroundPicture,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
-                Email =c.Email,
+                Email = c.Email,
                 Address = c.Address,
                 Phone = c.Phone,
                 LastLogDate = c.LastLogDate,
                 AllowCommission = c.AllowCommission,
-                Biography =c.Biography,
-                VIP = c.VIP ,
-                FollowCounts = c.FollowCounts,  
-                
+                Biography = c.Biography,
+                VIP = c.VIP,
+                FollowCounts = c.FollowCounts,
+
             })
             .ToListAsync();
 
@@ -53,12 +53,12 @@ public class CreatorController : ControllerBase
     public async Task<ActionResult<IEnumerable<Creator>>> GetVipCreators()
     {
         var vipCreators = await _context.Creators
-            .Where(c => c.VIP == true  )
+            .Where(c => c.VIP == true)
             .Select(c => new Creator
             {
                 CreatorID = c.CreatorID,
                 AccountID = c.AccountID,
-                PaymentID  = c.PaymentID,
+                PaymentID = c.PaymentID,
                 UserName = c.UserName,
                 ProfilePicture = c.ProfilePicture,
                 BackgroundPicture = c.BackgroundPicture,
@@ -86,9 +86,9 @@ public class CreatorController : ControllerBase
             .Select(c => new Creator
             {
                 CreatorID = c.CreatorID,
-                
+
                 UserName = c.UserName,
-                
+
                 VIP = c.VIP,
 
                 Email = c.Email,
@@ -181,8 +181,6 @@ public class CreatorController : ControllerBase
 
         return creator;
     }
-
-
     [HttpGet("NotBackground")]
     public async Task<ActionResult<IEnumerable<Creator>>> GetCreatorsNotBack()
     {
@@ -220,7 +218,7 @@ public class CreatorController : ControllerBase
             .Where(c => c.CreatorID == CreatorID)
             .Select(c => new Creator
             {
-                
+
                 ProfilePicture = c.ProfilePicture
             })
             .FirstOrDefaultAsync();
@@ -323,27 +321,27 @@ public class CreatorController : ControllerBase
     public async Task<List<Creator>> GetCreatorByUsername(string username)
     {
         var creator = await _context.Creators.Select(c => new Creator
-             
-             {
-                 CreatorID = c.CreatorID,
-                 AccountID = c.AccountID,
-                 PaymentID = c.PaymentID,
-                 UserName = c.UserName,
-                 ProfilePicture = c.ProfilePicture,
-                 BackgroundPicture = c.BackgroundPicture,
-                 FirstName = c.FirstName,
-                 LastName = c.LastName,
-                 Email = c.Email,
-                 Address = c.Address,
-                 Phone = c.Phone,
-                 LastLogDate = c.LastLogDate,
-                 AllowCommission = c.AllowCommission,
-                 Biography = c.Biography,
-                 VIP = c.VIP,
-                 FollowCounts = c.FollowCounts,
 
-             }).Where( c=> c.UserName.ToLower().Contains(username.ToLower())).ToListAsync();
-             
+        {
+            CreatorID = c.CreatorID,
+            AccountID = c.AccountID,
+            PaymentID = c.PaymentID,
+            UserName = c.UserName,
+            ProfilePicture = c.ProfilePicture,
+            BackgroundPicture = c.BackgroundPicture,
+            FirstName = c.FirstName,
+            LastName = c.LastName,
+            Email = c.Email,
+            Address = c.Address,
+            Phone = c.Phone,
+            LastLogDate = c.LastLogDate,
+            AllowCommission = c.AllowCommission,
+            Biography = c.Biography,
+            VIP = c.VIP,
+            FollowCounts = c.FollowCounts,
+
+        }).Where(c => c.UserName.ToLower().Contains(username.ToLower())).ToListAsync();
+
 
         return creator;
     }
@@ -373,10 +371,10 @@ public class CreatorController : ControllerBase
             .ToListAsync();
         searchResult.ArtworksByArtworkName = artworksByArtworkName;
 
-         // Tìm kiếm artworks dựa trên TagName nếu có
-         var tagsContainingSearchTerm = await _context.Tags
-       .Where(t => t.TagName.Contains(searchTerm))
-       .ToListAsync();
+        // Tìm kiếm artworks dựa trên TagName nếu có
+        var tagsContainingSearchTerm = await _context.Tags
+      .Where(t => t.TagName.Contains(searchTerm))
+      .ToListAsync();
 
         // Lấy danh sách TagID từ các tag đã lọc
         var tagIds = tagsContainingSearchTerm.Select(t => t.TagID).ToList();
@@ -464,7 +462,7 @@ public class CreatorController : ControllerBase
             creatorModel.VIP = false;
         }
 
-       
+
 
         _context.Creators.Add(creatorModel);
         await _context.SaveChangesAsync();
@@ -536,7 +534,7 @@ public class CreatorController : ControllerBase
         return NoContent();
     }
 
-   
+
 
 
     [HttpDelete("{id}")]
@@ -577,7 +575,7 @@ public class CreatorController : ControllerBase
 
 
         // Xóa tất cả các bản ghi trong bảng OrderDetail có CreatorID là creator.Id
-        
+
 
         // Lưu các thay đổi vào cơ sở dữ liệu
         await _context.SaveChangesAsync();
@@ -588,8 +586,6 @@ public class CreatorController : ControllerBase
 
         return NoContent();
     }
-
-
     private bool CreatorExists(int id)
     {
         return _context.Creators.Any(e => e.CreatorID == id);
