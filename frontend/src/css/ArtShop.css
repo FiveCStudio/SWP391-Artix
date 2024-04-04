@@ -1,11 +1,11 @@
 .card1 {
-    --background: linear-gradient(to right, #74ebd5 0%, #acb6e5 100%);
+    /* --background: linear-gradient(to right, #74ebd5 0%, #acb6e5 100%); */
     /* width: 190px;
     height: 254px; */
     padding: 5px;
     border-radius: 1rem;
     overflow: visible;
-    background: #74ebd5;
+    /* background: #74ebd5; */
     background: var(--background);
     position: relative;
     z-index: 1;
@@ -23,7 +23,7 @@
     z-index: -1;
 }
 
-.card1::before {
+/* .card1::before {
     background: linear-gradient(to bottom right, #f6d365 0%, #fda085 100%);
     transform: rotate(2deg);
 }
@@ -31,12 +31,12 @@
 .card1::after {
     background: linear-gradient(to top right, #84fab0 0%, #8fd3f4 100%);
     transform: rotate(-2deg);
-}
+} */
 
 .card1-info {
-    --color: #292b2c;
+    /* --color: #292b2c;
     background: var(--color);
-    color: var(--color);
+    color: var(--color); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,5 +68,8 @@
 }
 
 .h-500 {
-    height: 500px;
+    height: 280px;
+}
+.box h1{
+    margin: 0;
 }

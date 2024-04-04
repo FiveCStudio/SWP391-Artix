@@ -8,8 +8,10 @@ import "../../css/ArtShop.css";
 import html2canvas from 'html2canvas';
 import { Link } from 'react-router-dom';
 import ArtShopDialog from './ArtShopDialog.jsx';
-
+import { ThemeContext } from '../Themes/ThemeProvider.tsx';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 function ArtShop() {
+    
     const auth = JSON.parse(sessionStorage.getItem("auth"));
     const [dataState, setDataSate] = useState([]);
     const [open, setOpen] = useState(false);
@@ -79,18 +81,21 @@ function ArtShop() {
     useEffect(() => {
         search();
     }, [dataState?.currentPage])
+    const { theme } = useContext(ThemeContext)
     return (
-        <Box
+        <Box className='box' 
             sx={{
                 color: '#61dafb',
-                backgroundColor: `rgba(26, 26, 46,0.97)`,
-                transition: "all 1s ease-in-out",
-                width: '88%',
+                backgroundColor: `rgba(${theme.rgbBackgroundColor},0.97)`,
+                transition: theme.transition,
+                width: '86%',
                 margin: 'auto',
                 borderRadius: '5px',
-                marginBottom: '15px',
-                paddingLeft: 10,
-                paddingRight: 10
+                marginBottom: '100px',
+                paddingLeft: 5,
+                paddingRight: 5,
+                paddingBottom:5,
+                transform: 'translateY(40px)'
             }}
         >
             <Backdrop
@@ -101,25 +106,27 @@ function ArtShop() {
             </Backdrop>
             {openDowload && <ArtShopDialog open={openDowload} handleClose={handleClose} handleYesClick={handleYesClick} />}
             <h1>
-                Purchasable Artworks
+                Purchasable Artworks:
             </h1>
-            <Box sx={{ display: "flex", gap: 5, flexWrap: "wrap", mt: 4 }}>
+            <Box sx={{ display: "flex", gap: 4, flexWrap: "wrap", mt: 4, justifyContent:'center' }}>
                 {dataState?.listItem?.map((art, index) => {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
-                                <Card sx={{ width: 400, background: "#cbe7efe6", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 5 }}>
+                           
+                                <Card sx={{ width: 280,height:'auto', background: theme.backgroundColor3, display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
+                                <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
                                     <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h6" component="div">
                                             {art?.artworkName}
                                         </Typography>
                                         <div>
-                                            <img id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
+                                            <img style = {{pointerEvents:'none'}} id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
                                         </div>
 
                                         <Typography variant="body2" color="text.secondary">
                                             <IconButton aria-label="add to favorites">
-                                                <Headset color='primary' />
+                                                <FavoriteBorderIcon sx={{ color: pink[500] }} />
                                             </IconButton>
                                             {art?.likes}
                                             <IconButton aria-label="share">
@@ -127,15 +134,16 @@ function ArtShop() {
                                             </IconButton>
                                             {formatMoney(art?.price)}
                                         </Typography>
-                                    </CardContent>
-                                    <CardActions sx={{ paddingLeft: 3 }}>
-                                        <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}><Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Detail'><More /></Button></Link>
+                                    </CardContent></Link>
+                                    <CardActions  >
+                                    <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
+                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More />Detail</Button></Link>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
                                             art?.status ===
                                             "Đã thanh toán"
                                             &&
-                                            <Button sx={{ minWidth: 0 }}
+                                            <Button sx={{ minWidth: '30%',marginBottom:'5px' }}
                                                 variant="contained" size="small" title='Dowload' onClick={() => handleDownload(`img-${index}`)}>
                                                 <Download />
                                             </Button>}
