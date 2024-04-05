@@ -5,15 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Entities;
+using backend.Service;
 
 [Route("api/[controller]")]
 [ApiController]
 public class PackageController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-
-    public PackageController(ApplicationDbContext context)
+    private readonly IVnPayService _vnPayService;
+    public PackageController(IVnPayService vnPayService, ApplicationDbContext context)
     {
+        _vnPayService = vnPayService;
         _context = context;
     }
 
