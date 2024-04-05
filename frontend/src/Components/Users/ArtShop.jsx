@@ -140,11 +140,11 @@ function ArtShop() {
                                     </CardContent></Link>
                                     <CardActions  >
                                     <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
-                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More />Detail</Button></Link>
+                                        <Button sx={{ minWidth: '30%',margin:'0px 50px 5px 15px' }} variant="contained" size="small" title='Detail'><More /></Button></Link>
                                         {/* {i?.purchasable && <Button sx={{ minWidth: 0 }} variant="contained" size="small" title='Buy'><Shop /></Button>} */}
                                         {
-                                            art?.status ===
-                                            "Đã thanh toán"
+                                            art?.status === true
+                                           
                                             &&
                                             <Button sx={{ minWidth: '30%',marginBottom:'5px' }}
                                                 variant="contained" size="small" title='Dowload' onClick={() => handleDownload(`img-${index}`)}>
