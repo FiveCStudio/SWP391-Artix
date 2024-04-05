@@ -22,7 +22,6 @@ namespace backend.Entities
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Account> Account { get; set; }
         public DbSet<Moderators> Moderators { get; set; }
-
         public DbSet<ArtworkTag> ArtworkTag { get; set; }
         public DbSet<Artworks> Artworks { get; set; }
         public DbSet<Comments> Comments { get; set; }
@@ -49,9 +48,7 @@ namespace backend.Entities
 
             modelBuilder.Entity<ArtworkTag>()
             .HasKey(t => new { t.ArtworkID, t.TagID });
-
-            
-
+            modelBuilder.Entity<OrderDetail>().Ignore(o => o.email);
             base.OnModelCreating(modelBuilder);
         }
     }
