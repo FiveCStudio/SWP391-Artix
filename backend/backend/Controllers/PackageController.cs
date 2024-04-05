@@ -37,4 +37,13 @@ public class PackageController : ControllerBase
 
         return package;
     }
+    // POST: api/Package
+    [HttpPost]
+    public async Task<ActionResult<Package>> PostPackage(Package package)
+    {
+        _context.Package.Add(package);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetPackage), new { id = package.PackageID }, package);
+    }
 }
