@@ -48,6 +48,31 @@ public class PackageController : ControllerBase
 
         return CreatedAtAction(nameof(GetPackage), new { id = package.PackageID }, package);
     }
+
+
+    // POST: api/Package/Purchase
+    //[HttpPost("Purchase")]
+    //public async Task<IActionResult> PurchasePackage([FromBody] CurrentPackage currentPackage)
+    //{
+    //    // Truy vấn bảng Package để lấy thông tin gói package
+    //    var package = await _context.Package.FindAsync(currentPackage.PackageID);
+    //    if (package == null)
+    //    {
+    //        return NotFound("Gói package không tồn tại");
+    //    }
+
+    //    // Cập nhật trạng thái của gói package thành "Active" sau khi mua
+        
+    //    _context.Package.Update(package);
+    //    await _context.SaveChangesAsync();
+
+    //    // Tạo URL thanh toán VNPay và trả về cho người dùng
+    //   // var paymentUrl = await _vnPayService.CreatePaymentUrl2(package, HttpContext);
+    //   // return Ok(paymentUrl);
+    //}
+
+
+
     [HttpPut("{id}")]
     public async Task<IActionResult> PutPackage(int id, Package package)
     {
