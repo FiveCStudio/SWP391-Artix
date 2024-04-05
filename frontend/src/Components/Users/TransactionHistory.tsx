@@ -6,6 +6,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../Themes/ThemeProvider.tsx';
 import '../../css/TransactionHistory.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -79,6 +80,7 @@ export default function TransactionHistory() {
   const [orderBySeller, setOrderBySeller] = useState<OrderDetailsExtended[]>([])
   const [loading, setLoading] = useState(false);
   const [orderHeader, setOrderHeader] = useState<OrderHeader[] | undefined>()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const orderYouBuyandSell = async () => {
@@ -93,8 +95,11 @@ export default function TransactionHistory() {
     }
     
     orderYouBuyandSell()
-
   }, [])
+
+  const redirect = (artID)=>{
+    navigate(`../artwordrecomment/artwork/${artID}`)
+  }
 
   //MUI
   // Handle change page
@@ -235,7 +240,7 @@ export default function TransactionHistory() {
               <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                 <TableHead>
                   <TableRow style={{ backgroundColor: '#0b81ff' }}>
-                    <TableCell style={{ color: 'white' }} align="left">Order ID</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Artwork</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Customer Name</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Pice</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Date</TableCell>
@@ -248,8 +253,8 @@ export default function TransactionHistory() {
                       key={order.orderID}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {order.orderID}
+                      <TableCell onClick={()=>redirect(order.artWorkID)} component="th" scope="row">
+                        View Artwork
                       </TableCell>
                       {/* userNamereceiver là của người mua */}
                       <TableCell align="left">{order.buyerName}</TableCell>
