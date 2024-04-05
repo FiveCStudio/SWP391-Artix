@@ -124,7 +124,7 @@ function ArtShop() {
                                             {art?.artworkName}
                                         </Typography>
                                         <div>
-                                            <img style = {{pointerEvents:'none'}} id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
+                                            <img style = {{pointerEvents:'none', objectFit:'cover'}} id={`img-${index}`} className='w-full h-500' src={"data:image/jpeg;base64," + art?.image} alt={art?.artworkName} />
                                         </div>
 
                                         <Typography variant="body2" color="text.secondary">
