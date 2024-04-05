@@ -150,7 +150,7 @@ export default function PostWork() {
               ""
             }
             <div style={{ margin: 'auto 5px', }}>
-              {artwork?.purchasable ?
+              {artwork?.purchasable && !status ?
                   <Chip label= {formatMoney(artwork?.price)} onClick={handleOpen} style={{ fontSize: '20px', padding: '20px', fontWeight: '600', backgroundColor: '#61dafb' }} />
                 : ""}
             </div>
