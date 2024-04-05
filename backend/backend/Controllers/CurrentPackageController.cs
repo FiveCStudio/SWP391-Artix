@@ -38,6 +38,15 @@ namespace YourNamespace.Controllers
 
             return currentPackage;
         }
+        // POST: api/CurrentPackage
+        [HttpPost]
+        public async Task<ActionResult<CurrentPackage>> PostCurrentPackage(CurrentPackage currentPackage)
+        {
+            _context.CurrentPackage.Add(currentPackage);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCurrentPackage), new { id = currentPackage.CurrentPackageID }, currentPackage);
+        }
 
 
 
