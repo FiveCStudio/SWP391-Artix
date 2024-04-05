@@ -48,7 +48,55 @@ namespace YourNamespace.Controllers
             return CreatedAtAction(nameof(GetCurrentPackage), new { id = currentPackage.CurrentPackageID }, currentPackage);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCurrentPackage(int id, CurrentPackage currentPackage)
+        {
+            if (id != currentPackage.CurrentPackageID)
+            {
+                return BadRequest();
+            }
 
+            _context.Entry(currentPackage).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CurrentPackageExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/CurrentPackage/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCurrentPackage(int id)
+        {
+            var currentPackage = await _context.CurrentPackage.FindAsync(id);
+            if (currentPackage == null)
+            {
+                return NotFound();
+            }
+
+            _context.CurrentPackage.Remove(currentPackage);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool CurrentPackageExists(int id)
+        {
+            return _context.CurrentPackage.Any(e => e.CurrentPackageID == id);
+        }
 
 
     }
