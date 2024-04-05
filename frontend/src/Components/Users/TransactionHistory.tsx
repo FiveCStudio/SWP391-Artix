@@ -147,7 +147,7 @@ export default function TransactionHistory() {
               <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                 <TableHead>
                   <TableRow style={{ backgroundColor: '#0b81ff' }}>
-                    <TableCell style={{ color: 'white' }} align="left">Order ID</TableCell>
+                    <TableCell style={{ color: 'white' }} align="left">Artwork</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Artist</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Pice</TableCell>
                     <TableCell style={{ color: 'white' }} align="left">Date</TableCell>
@@ -160,10 +160,16 @@ export default function TransactionHistory() {
                       key={order.orderID}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {order.orderID}
+                      <TableCell 
+                      sx={{
+                        fontStyle:"italic",
+                        color:theme.color
+                      ,":hover":{textDecoration:"underline"}
+                      ,}}
+                      onClick={()=>redirect(order.artWorkID)} component="th" scope="row">
+                        View Artwork
                       </TableCell>
-                      {/* userNamereceiver là của người bán */}
+                      {/* Seller là của người bán */}
                       <TableCell align="left">{order.sellerName}</TableCell>
                       <TableCell align="left">{order.price}</TableCell>
                       <TableCell align="left">{order.dateOfPurchase}</TableCell>
@@ -253,7 +259,7 @@ export default function TransactionHistory() {
                       key={order.orderID}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell onClick={()=>redirect(order.artWorkID)} component="th" scope="row">
+                      <TableCell component="th" scope="row">
                         View Artwork
                       </TableCell>
                       {/* userNamereceiver là của người mua */}
