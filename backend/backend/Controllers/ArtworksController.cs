@@ -69,7 +69,7 @@ public class ArtworksController : ControllerBase
 
             // Lấy danh sách Artworks và thêm trạng thái vào mỗi artwork trong danh sách
             var artworkViewModels = await _context.Artworks
-                .Where(artwork => artwork.Purchasable && _context.OrderDetail.Any(od => od.ArtWorkID == artwork.ArtworkID && od.Order.BuyerID == buyerId))
+                .Where(artwork => artwork.Purchasable) // Chỉ lấy những artwork có Purchasable là true
                 .Skip(skipCount) // Bỏ qua các bản ghi không cần thiết
                 .Take(pageSize) // Chỉ lấy số lượng bản ghi cần thiết cho trang hiện tại
                 .Select(artwork => new ArtworkViewModel
@@ -83,7 +83,7 @@ public class ArtworksController : ControllerBase
                     image = artwork.ImageFile,
                     Purchasable = artwork.Purchasable,
                     Price = artwork.Price,
-                    Status = true // Nếu artwork có purchasable và thuộc buyerID thì Status là true
+                    Status = _context.OrderDetail.Any(od => od.ArtWorkID == artwork.ArtworkID && od.Order.BuyerID == buyerId)
                 })
                 .ToListAsync();
 
@@ -101,6 +101,7 @@ public class ArtworksController : ControllerBase
             return StatusCode(500, $"Lỗi không xác định: {ex.Message}");
         }
     }
+
 
 
 
