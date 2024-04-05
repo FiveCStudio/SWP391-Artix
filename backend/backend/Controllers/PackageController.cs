@@ -46,4 +46,36 @@ public class PackageController : ControllerBase
 
         return CreatedAtAction(nameof(GetPackage), new { id = package.PackageID }, package);
     }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutPackage(int id, Package package)
+    {
+        if (id != package.PackageID)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(package).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PackageExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return NoContent();
+    }
+    private bool PackageExists(int id)
+    {
+        return _context.Package.Any(e => e.PackageID == id);
+    }
 }
