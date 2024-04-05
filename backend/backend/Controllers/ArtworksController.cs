@@ -120,15 +120,6 @@ public class ArtworksController : ControllerBase
             // Tạo đối tượng ArtworkViewModel với thông tin từ Artwork và trạng thái thanh toán
             var artworkViewModel = new ArtworkViewModel
             {
-                ArtworkID = artwork.ArtworkID,
-                CreatorID = artwork.CreatorID,
-                ArtworkName = artwork.ArtworkName,
-                Description = artwork.Description,
-                DateCreated = artwork.DateCreated,
-                Likes = artwork.Likes,
-                image = artwork.ImageFile,
-                Purchasable = artwork.Purchasable,
-                Price = artwork.Price,
                 Status = isPaid
             };
 
