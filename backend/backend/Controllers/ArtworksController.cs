@@ -53,8 +53,8 @@ public class ArtworksController : ControllerBase
     }
 
 
-    [HttpGet("GetArtworksWithPurchasable")]
-    public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPurchasable(int pageNumber = 1, int pageSize = 6)
+    [HttpGet("GetArtworksWithPaymentStatus")]
+    public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPaymentStatus(int pageNumber = 1, int pageSize = 6)
     {
         try
         {
