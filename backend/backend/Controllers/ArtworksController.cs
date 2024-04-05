@@ -53,8 +53,8 @@ public class ArtworksController : ControllerBase
     }
 
 
-    [HttpGet("GetArtworksWithPaymentStatus/{buyerId}")]
-    public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPaymentStatus(int buyerId, int pageNumber = 1, int pageSize = 6)
+    [HttpGet("GetArtworksWithPurchasable")]
+    public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPurchasable(int pageNumber = 1, int pageSize = 6)
     {
         try
         {
@@ -67,8 +67,9 @@ public class ArtworksController : ControllerBase
             // Tính toán tổng số trang
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-            // Lấy danh sách Artworks và thêm trạng thái vào mỗi artwork trong danh sách
+            // Lấy danh sách Artworks có Purchasable là true và thêm trạng thái vào mỗi artwork trong danh sách
             var artworkViewModels = await _context.Artworks
+                .Where(artwork => artwork.Purchasable) // Chỉ lấy các Artworks có Purchasable là true
                 .Skip(skipCount) // Bỏ qua các bản ghi không cần thiết
                 .Take(pageSize) // Chỉ lấy số lượng bản ghi cần thiết cho trang hiện tại
                 .Select(artwork => new ArtworkViewModel
@@ -82,7 +83,7 @@ public class ArtworksController : ControllerBase
                     image = artwork.ImageFile,
                     Purchasable = artwork.Purchasable,
                     Price = artwork.Price,
-                    Status = _context.OrderDetail.Any(od => od.ArtWorkID == artwork.ArtworkID && od.Order.BuyerID == buyerId)
+                    Status = true // Tạm thời gán Status là true, vì không cần buyerId
                 })
                 .ToListAsync();
 
@@ -100,6 +101,8 @@ public class ArtworksController : ControllerBase
             return StatusCode(500, $"Lỗi không xác định: {ex.Message}");
         }
     }
+
+
 
     [HttpGet("GetArtworksWithPaymentStatus/{buyerId}/{artworkId}")]
     public async Task<ActionResult<ArtworkViewModel>> GetArtworksWithPaymentStatus2(int buyerId, int artworkId)
