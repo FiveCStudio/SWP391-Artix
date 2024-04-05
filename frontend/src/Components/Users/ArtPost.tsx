@@ -46,9 +46,9 @@ export default function PostWork() {
       setLoading(true)
       const artworkbyid:Artwork = await GetArtById(id ? id : "1");
       setArtwork(artworkbyid)
-      const status = await GetArtsPaymentStatus(savedUser?.creatorID,artworkbyid.artworkID)
-      setStatus(status)
-      const creator = await GetCreatorByID(artwork ? artwork.creatorID : "1")
+      const paystatus = await GetArtsPaymentStatus(savedUser?.creatorID,artworkbyid.artworkID)
+      setStatus(paystatus)
+      const creator = await GetCreatorByID(artworkbyid ? artworkbyid.creatorID : "1")
       setCreator(creator)
       setLoading(false)
     }
@@ -183,10 +183,8 @@ const handleDownload = async (id: string) => {
             {creator?.creatorID === savedUser?.creatorID ?
               <Button onClick={handleDelete} variant='contained' color='error' >Delete Artwork</Button>
               :
-              ""
-            }
-            <div style={{ margin: 'auto 5px', }}>
-              {artwork?.purchasable && !status ?
+              <div style={{ margin: 'auto 5px', }}>
+              {artwork?.purchasable===true && status?.status===false ?
                   <Chip label= {formatMoney(artwork?.price)} onClick={handleOpen} style={{ fontSize: '20px', padding: '20px', fontWeight: '600', backgroundColor: '#61dafb' }} />
                 : 
                 <Button sx={{ minWidth: '30%',marginBottom:'5px' }}
@@ -197,6 +195,8 @@ const handleDownload = async (id: string) => {
                   </Button>
                 }
             </div>
+            }
+            
           </div>
           <div id='"#comment"'>
             <Comments />
