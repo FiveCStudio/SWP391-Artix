@@ -116,7 +116,7 @@ function ArtShop() {
                     return (
                         <div class="card1" key={index}>
                             <div class="card1-info">
-                           
+                             
                                 <Card sx={{ width: 280,height:'auto', background: theme.backgroundColor3, display: "flex", flexDirection: "column", justifyContent: "space-between", borderRadius: 1 }}>
                                 <Link to={`../artwordrecomment/artwork/${art?.artworkID}`}>
                                     <CardContent>
