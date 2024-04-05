@@ -13,15 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6e4e74c1f643760d333205078e6cbe82a52fdb8")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c2692bb2e7123ff70710b24098ba01cd24289b9")]
->>>>>>> NhanHT
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f910079a47f2bb4ede1224af223abe1e8837b23")]
->>>>>>> Tuyet_TAT
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5d88e4232ab05d540f77a4bad5813fe974fa35a")]
 [assembly: System.Reflection.AssemblyProductAttribute("backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
