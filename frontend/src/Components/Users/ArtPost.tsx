@@ -11,8 +11,8 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ListTag } from '../../share/ListofTag.js';
 import { ThemeContext } from '../Themes/ThemeProvider.tsx';
-import { GetArtById } from '../../API/ArtworkAPI/GET.tsx';
-import { Artwork } from '../../Interfaces/ArtworkInterfaces.ts';
+import { GetArtById, GetArtsPaymentStatus } from '../../API/ArtworkAPI/GET.tsx';
+import { Artwork, ArtworkPaymentStatus } from '../../Interfaces/ArtworkInterfaces.ts';
 import { GetCreatorByID } from '../../API/UserAPI/GET.tsx';
 import { Creator } from '../../Interfaces/UserInterface.ts';
 import Chip from '@mui/material/Chip';
@@ -30,6 +30,7 @@ export default function PostWork() {
   const { theme } = useContext(ThemeContext)
   const { id } = useParams();
   const [artwork, setArtwork] = useState<Artwork>()
+  const [status, setStatus] = useState<ArtworkPaymentStatus>()
   const [creator, setCreator] = useState<Creator>()
   const [tags, setTags] = useState<Tag[]>([])
   const savedAuth = sessionStorage.getItem('auth');
@@ -38,11 +39,12 @@ export default function PostWork() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
   useEffect(() => {
-    
     const getArtWork = async () => {
       setLoading(true)
-      const artwork = await GetArtById(id ? id : "1");
-      setArtwork(artwork)
+      const artworkbyid:Artwork = await GetArtById(id ? id : "1");
+      setArtwork(artworkbyid)
+      const status = await GetArtsPaymentStatus(savedUser?.creatorID,artworkbyid.artworkID)
+      setStatus(status)
       const creator = await GetCreatorByID(artwork ? artwork.creatorID : "1")
       setCreator(creator)
       setLoading(false)
