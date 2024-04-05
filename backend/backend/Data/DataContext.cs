@@ -34,6 +34,8 @@ namespace backend.Entities
         public DbSet<OrderDetail> OrderDetail { get; set; }
         public DbSet<Commission> Commission { get; set; }
         public DbSet<CommissionForm> CommissionForm { get; set; }
+
+        public DbSet<Package> Package { get; set; }
         // Thêm DbSet cho các bảng khác nếu cần
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
