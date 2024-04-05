@@ -6,7 +6,7 @@ export interface Artwork{
   description: string,
   dateCreated: Date,
   likes: number,
-  purchasable: false,
+  purchasable: boolean,
   price: number,
   imageFile: string,
   artworkTag: [
@@ -29,7 +29,7 @@ export interface DownloadArtwork extends Artwork{
   description: string,
   dateCreated: Date,
   likes: number,
-  purchasable: false,
+  purchasable: boolean,
   price: number,
   imageFile: string,
   idDowLoad: string,
