@@ -53,7 +53,7 @@ public class ArtworksController : ControllerBase
     }
 
 
-    [HttpGet("GetArtworksWithPurchasable")]
+    [HttpGet("GetArtworksWithPaymentStatus")]
     public async Task<ActionResult<ArtworksResponse>> GetArtworksWithPurchasable(int pageNumber = 1, int pageSize = 6)
     {
         try
