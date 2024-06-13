@@ -10,51 +10,76 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { ThemeContext } from '../Themes/ThemeProvider.tsx';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../AuthenContext.tsx';
+import { Creator } from '../../Interfaces/UserInterface';
+import { LightDarkSwitch } from './CustomizedLightDarkSwitch.tsx';
 
-  
-  
-export default function CustomizedDropdown() {
-    const {theme,toggleTheme,dark} = useContext(ThemeContext)
-    // Custom style for the Menu component
-    const CustomizedMenu = styled(Menu)(() => ({
-      '& .MuiPaper-root': {
-        backgroundColor: theme.backgroundColor,
-        boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
-        color:theme.color,
-        border:theme.borderColor,
-      },
-      '':{
-        border: `1px, ${theme.color}`
-      }
-      // Any additional styles you want to apply
-    }));
-    const [anchorEl, setAnchorEl] = useState(null)
-    const [open,setOpen] = useState(false)
-  useEffect(()=>{
-   
+//Create an interface for your function to assign types to its props
+interface CustomizedDropdownProps {
+  user: Creator;
+  handleClickAsGuest: any;
 }
-)
-const handleClick = (event) => {
-  setAnchorEl(event.currentTarget)
-  setOpen(!open)
-};
-  return (
-    <div>
-      <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : ''}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : 'false'}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
-        </IconButton>
+export default function CustomizedDropdown({ user, handleClickAsGuest }: CustomizedDropdownProps) {
+
+
+  const { theme, toggleTheme, dark } = useContext(ThemeContext)
+  const { logout } = useAuth();
+  // Custom style for the Menu component
+  const CustomizedMenu = styled(Menu)(() => ({
+    '& .MuiPaper-root': {
+      backgroundColor: theme.backgroundColor,
+      boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
+      color: theme.color,
+      border: theme.borderColor,
+    },
+    '': {
+      border: `1px, ${theme.color}`
+    }
+    // Any additional styles you want to apply
+  }));
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [open, setOpen] = useState(false)
+  useEffect(() => {
+  }
+  )
+  const handleClickDropdown = (event) => {
+    if (user === null) {
+      handleClickAsGuest()
+    }
+    else {
+      setAnchorEl(event.currentTarget)
+      setOpen(!open)
+    }
+  };
+
+  function DropdownContent() {
+    return (
+      <>
+        <Divider sx={{ "&::before, &::after": { backgroundColor: theme.color } }} variant='middle'>
+          <Typography variant='caption'>Account</Typography>
+        </Divider>
+        <MenuItem ><Link to={`profile/${user.creatorID}`}>Profile</Link></MenuItem>
+        <MenuItem ><Link to={`dashboarduser`}>My Dashboard</Link></MenuItem>
+        {/* <MenuItem >My Account</MenuItem> */}
+        <Divider sx={{ "&::before, &::after": { backgroundColor: theme.color } }} variant='middle'>
+          <Typography variant='caption'>Theme</Typography>
+        </Divider>
+        <MenuItem >
+          <LightDarkSwitch onClick={toggleTheme} checked={dark} />
+        </MenuItem>
+        <Divider sx={{ "backgroundColor": { backgroundColor: theme.color } }} variant='middle' />
+        <MenuItem onClick={logout}>Logout</MenuItem>
+      </>
+    )
+  }
+
+  function Dropdown() {
+    return (
       <CustomizedMenu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClick}
+        onClose={handleClickDropdown}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -64,24 +89,31 @@ const handleClick = (event) => {
           horizontal: 'center',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'left',flexDirection: 'column' }}>
-        <Divider sx={{"&::before, &::after":{backgroundColor:theme.color}}} variant='middle'>
-        <Typography variant='caption'>Account</Typography>
-        </Divider>
-        <MenuItem onClick={handleClick}><Link to={`creatorform`}>Profile</Link></MenuItem>
-        <MenuItem onClick={handleClick}>My Dashboard</MenuItem>
-        <MenuItem onClick={handleClick}>My Account</MenuItem>
-        <Divider sx={{"&::before, &::after":{backgroundColor:theme.color}}} variant='middle'>
-        <Typography variant='caption'>Theme</Typography>
-        </Divider>
-        <MenuItem onClick={toggleTheme}>
-          {dark ? "Dark" : "Light"}
-          <Switch  checked={dark} />
-          </MenuItem>
-        <Divider sx={{"backgroundColor":{backgroundColor:theme.color}}} variant='middle'/>
-        <MenuItem onClick={handleClick}>Logout</MenuItem>
+        <Box sx={{ display: 'flex', alignItems: 'left', flexDirection: 'column' }}>
+          <DropdownContent />
         </Box>
-      </CustomizedMenu>
+      </CustomizedMenu >
+
+    )
+  }
+  return (
+    <div>
+      <IconButton
+        onClick={handleClickDropdown}
+        size="small"
+        sx={{ ml: 2 }}
+        aria-controls={open ? 'account-menu' : ''}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : 'false'}
+      >
+        <Avatar src={user ? `data:image/jpeg;base64,${user.profilePicture}` : ""} sx={{ width: 32, height: 32 }}>{user ? user.userName.charAt[0] : ""}</Avatar>
+      </IconButton>
+      {
+        user === null ?
+          <></>
+          :
+          <Dropdown />
+      }
     </div>
   );
 }
